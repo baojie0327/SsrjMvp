@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">MFD</string>
+
+    <!--首页-->
+    <string name="homepage">首页</string>
+    <string name="shopping">购物</string>
+    <string name="assistant_match">场景穿搭</string>
+    <string name="assistant">购衣助手</string>
+    <string name="classify">分类</string>
+    <string name="my_diary">我的日记</string>
+
+    <!--登录页面-->
+    <string name="phone_number">账号</string>
+    <string name="please_password">密码</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="quickly_login">手机号快捷登录</string>
+    <string name="use_third_party_account_login">第三方账号登录</string>
+</resources>
