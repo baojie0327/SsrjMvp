@@ -12,9 +12,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.jackson.ssrjmvp.R;
+import com.jackson.ssrjmvp.dagger.DaggerLoginComponent;
+import com.jackson.ssrjmvp.dagger.LoginModule;
 import com.jackson.ssrjmvp.presenter.LoginPresenter;
 import com.jackson.ssrjmvp.utils.CommonMethod;
 import com.jackson.ssrjmvp.view.IView;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,7 +28,9 @@ import io.reactivex.disposables.Disposable;
 public class LoginActivity extends BaseActivity implements IView.ILoginView {
 
 
-    LoginPresenter mLoginPresenter = new LoginPresenter(this);
+  //  LoginPresenter mLoginPresenter = new LoginPresenter(this);
+    @Inject
+    LoginPresenter mLoginPresenter;
 
     @BindView(R.id.ll_back)
     LinearLayout mLlBack;
@@ -48,8 +54,19 @@ public class LoginActivity extends BaseActivity implements IView.ILoginView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        inject();
         initView();
 
+    }
+
+    /**
+     * Dagger2的inject方法
+     */
+    private void inject(){
+        DaggerLoginComponent.builder()
+                .loginModule(new LoginModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override

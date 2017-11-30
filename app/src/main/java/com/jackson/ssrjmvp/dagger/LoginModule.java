@@ -3,7 +3,13 @@ package com.jackson.ssrjmvp.dagger; /**
  * Copyright (c) 2017 KL Co.Ltd. All right reserved.
  */
 
+import com.jackson.ssrjmvp.presenter.LoginPresenter;
+import com.jackson.ssrjmvp.view.IView;
+
+import javax.inject.Singleton;
+
 import dagger.Module;
+import dagger.Provides;
 
 /**
  * class description here
@@ -14,14 +20,28 @@ import dagger.Module;
 @Module
 public class LoginModule {
 
-    public  LoginModule(){
+    private IView.ILoginView loginView;
 
+    public  LoginModule(IView.ILoginView view){
+        this.loginView=view;
     }
 
-  //  @Provides
-  //  @Singleton
-   /* LoginPresenter provideLoginPresenter(ILoginView iLoginView, LoginModel loginModel){
-        return new LoginPresenter(iLoginView,loginModel);
-    }*/
+    /**
+     * 提供LoginPresenter
+     * @param iLoginView
+     * @return
+     */
+    @Provides
+    @Singleton
+    LoginPresenter provideLoginPresenter(IView.ILoginView iLoginView){
+        return new LoginPresenter(iLoginView);
+    }
+
+    @Provides
+    @Singleton
+    IView.ILoginView provideILoginView(){
+        return loginView;
+    }
+
 }
 
