@@ -4,10 +4,14 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <TextView
+    <!--title-->
+    <include layout="@layout/head_layout"></include>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="资讯"/>
+        android:layout_marginTop="5dp"
+        android:background="@color/white"></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

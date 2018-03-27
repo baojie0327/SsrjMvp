@@ -3,6 +3,10 @@ package com.jackson.ssrjmvp.view; /**
  * Copyright (c) 2017 KL Co.Ltd. All right reserved.
  */
 
+import com.jackson.ssrjmvp.bean.ShopBean;
+
+import java.util.List;
+
 import io.reactivex.disposables.Disposable;
 
 /**
@@ -26,5 +30,15 @@ public class IView {
         void hideProgress();
         void toOtherActivity();
     }
+
+    /**
+     * 获取附近商户列表
+     */
+    public interface IDisCountView{
+        void setData(List<ShopBean.ShopDetails> mDataList);
+        void closeDispose(Disposable disposable);
+    }
+
+
 }
 

@@ -3,7 +3,9 @@ package com.jackson.ssrjmvp.apiservice; /**
  * Copyright (c) 2017 KL Co.Ltd. All right reserved.
  */
 
+import com.jackson.ssrjmvp.bean.ShopBean;
 import com.jackson.ssrjmvp.bean.UserLoginBean;
+import com.jackson.ssrjmvp.bean.parameter.DisCountBody;
 import com.jackson.ssrjmvp.bean.parameter.LoginBody;
 import com.jackson.ssrjmvp.utils.Constant;
 
@@ -65,6 +67,14 @@ public class JsNetworkService {
         @POST("member/login.do")
         //  @FormUrlEncoded
         Observable<UserLoginBean> getLogin(@Body LoginBody loginBody);
+
+        /**
+         * 获取惠买单商户列表
+         * @param disCountBody
+         * @return
+         */
+        @POST("member/queryDisCountMerchant.do")
+        Observable<ShopBean> getDisCountData(@Body DisCountBody disCountBody);
     }
 
 }

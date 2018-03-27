@@ -6,11 +6,15 @@ package com.jackson.ssrjmvp.presenter; /**
 import com.jackson.ssrjmvp.apiservice.MyCallBack;
 import com.jackson.ssrjmvp.bean.UserLoginBean;
 import com.jackson.ssrjmvp.bean.parameter.LoginBody;
+import com.jackson.ssrjmvp.dagger.component.DaggerLoginComponent;
+import com.jackson.ssrjmvp.dagger.module.LoginModule;
 import com.jackson.ssrjmvp.model.LoginModel;
 import com.jackson.ssrjmvp.view.IView;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.inject.Inject;
 
 import io.reactivex.disposables.Disposable;
 
@@ -24,11 +28,22 @@ import io.reactivex.disposables.Disposable;
 public class LoginPresenter {
 
     private IView.ILoginView mILoginView;
-    private LoginModel mLoginModel;
+
+    @Inject
+    LoginModel mLoginModel;
+  //  private LoginModel mLoginModel;
 
     public LoginPresenter(IView.ILoginView iLoginView) {
         this.mILoginView = iLoginView;
-        mLoginModel = new LoginModel();
+        inject();
+      //  mLoginModel = new LoginModel();
+    }
+
+    private void inject(){
+        DaggerLoginComponent.builder()
+                .loginModule(new LoginModule())
+                .build()
+                .inject(this);
     }
 
     /**

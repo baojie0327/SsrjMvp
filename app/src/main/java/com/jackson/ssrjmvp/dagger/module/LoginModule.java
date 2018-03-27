@@ -1,8 +1,9 @@
-package com.jackson.ssrjmvp.dagger; /**
+package com.jackson.ssrjmvp.dagger.module; /**
  * LoginModule  2017-10-25
  * Copyright (c) 2017 KL Co.Ltd. All right reserved.
  */
 
+import com.jackson.ssrjmvp.model.LoginModel;
 import com.jackson.ssrjmvp.presenter.LoginPresenter;
 import com.jackson.ssrjmvp.view.IView;
 
@@ -21,6 +22,10 @@ import dagger.Provides;
 public class LoginModule {
 
     private IView.ILoginView loginView;
+
+    public LoginModule(){
+
+    }
 
     public  LoginModule(IView.ILoginView view){
         this.loginView=view;
@@ -41,6 +46,12 @@ public class LoginModule {
     @Singleton
     IView.ILoginView provideILoginView(){
         return loginView;
+    }
+
+    @Provides
+    @Singleton
+    LoginModel provideLoginModel(){
+        return new LoginModel();
     }
 
 }

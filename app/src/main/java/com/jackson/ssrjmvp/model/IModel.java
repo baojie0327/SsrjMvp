@@ -4,7 +4,9 @@ package com.jackson.ssrjmvp.model; /**
  */
 
 import com.jackson.ssrjmvp.apiservice.MyCallBack;
+import com.jackson.ssrjmvp.bean.ShopBean;
 import com.jackson.ssrjmvp.bean.UserLoginBean;
+import com.jackson.ssrjmvp.bean.parameter.DisCountBody;
 import com.jackson.ssrjmvp.bean.parameter.LoginBody;
 
 /**
@@ -21,6 +23,13 @@ public class IModel {
      */
     public interface ILoginModel {
         void login(LoginBody loginBody, MyCallBack<UserLoginBean> callBack); //登录
+    }
+
+    /**
+     * 获取惠买单列表
+     */
+    public interface IDisCountModel{
+        void getData(DisCountBody disCountBody, MyCallBack<ShopBean> callBack);
     }
 
 }

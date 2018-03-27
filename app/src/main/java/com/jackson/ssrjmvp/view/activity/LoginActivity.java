@@ -12,8 +12,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.jackson.ssrjmvp.R;
-import com.jackson.ssrjmvp.dagger.DaggerLoginComponent;
-import com.jackson.ssrjmvp.dagger.LoginModule;
+import com.jackson.ssrjmvp.dagger.component.DaggerLoginComponent;
+import com.jackson.ssrjmvp.dagger.module.LoginModule;
 import com.jackson.ssrjmvp.presenter.LoginPresenter;
 import com.jackson.ssrjmvp.utils.CommonMethod;
 import com.jackson.ssrjmvp.view.IView;
