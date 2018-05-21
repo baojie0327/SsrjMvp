@@ -16,15 +16,22 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * class description here
+ *
  * @author Jackson
  * @version 1.0.0
- * since 2018 02 06
+ *          since 2018 02 06
  */
-public class DisCountModel implements IModel.IDisCountModel{
+public class DisCountModel implements IModel.IDisCountModel {
+
+    private JsNetworkService mJsNetworkService;
+
+    public DisCountModel(JsNetworkService jsNetworkService) {
+        this.mJsNetworkService=jsNetworkService;
+    }
 
     @Override
     public void getData(DisCountBody disCountBody, final MyCallBack<ShopBean> callBack) {
-        JsNetworkService.getInstance().getIJsNetworkService()
+        mJsNetworkService.getIJsNetworkService()
                 .getDisCountData(disCountBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

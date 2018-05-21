@@ -7,7 +7,6 @@ import com.jackson.ssrjmvp.bean.ShopBean;
 import com.jackson.ssrjmvp.bean.UserLoginBean;
 import com.jackson.ssrjmvp.bean.parameter.DisCountBody;
 import com.jackson.ssrjmvp.bean.parameter.LoginBody;
-import com.jackson.ssrjmvp.utils.Constant;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -23,16 +22,16 @@ import retrofit2.http.POST;
 public class JsNetworkService {
 
     /**
-     * 全局变量的持有
+     * 全局变量的持有,已经改成Dagger2了
      */
-    private static JsNetworkService instance = new JsNetworkService(new RetrofitClient(Constant.baseUrl));
+ //   private static JsNetworkService instance = new JsNetworkService(new RetrofitClient(Constant.baseUrl));
 
     /**
      * 构造方法私有化
      * 初始化过程会初始化mIJsNetworkService
      * @param retrofitClient
      */
-    private JsNetworkService(RetrofitClient retrofitClient) {
+    public JsNetworkService(RetrofitClient retrofitClient) {
         mIJsNetworkService = retrofitClient.create(JsNetworkService.IJsNetworkService.class);
     }
 
@@ -41,9 +40,9 @@ public class JsNetworkService {
      * 提供一个全局访问点
      * @return
      */
-    public static JsNetworkService getInstance() {
+   /* public static JsNetworkService getInstance() {
         return instance;
-    }
+    }*/
 
     //网络请求服务的接口
     public IJsNetworkService mIJsNetworkService;

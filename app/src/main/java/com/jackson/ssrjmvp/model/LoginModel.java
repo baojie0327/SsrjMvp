@@ -23,17 +23,20 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class LoginModel implements IModel.ILoginModel {
 
+    private JsNetworkService mJsNetworkService;
+
     /**
      * 构造方法
      *
      * @param
      */
-   /* public LoginModel(JsNetworkService service) {
-        this.mJsNetworkService = service;
-    }*/
+    public LoginModel(JsNetworkService jsNetworkService) {
+        this.mJsNetworkService = jsNetworkService;
+    }
+
     @Override
     public void login(LoginBody loginBody, final MyCallBack<UserLoginBean> callBack) {
-        JsNetworkService.getInstance().getIJsNetworkService()
+        mJsNetworkService.getIJsNetworkService()
                 .getLogin(loginBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

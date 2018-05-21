@@ -1,6 +1,7 @@
 package com.jackson.ssrjmvp.dagger.component;
 
 import com.jackson.ssrjmvp.dagger.module.DisCountModule;
+import com.jackson.ssrjmvp.presenter.DisCountPresenter;
 import com.jackson.ssrjmvp.view.fragment.DisCountFragment;
 
 import javax.inject.Singleton;
@@ -16,5 +17,6 @@ import dagger.Component;
 public interface DiscountComponent {
 
     void inject(DisCountFragment disCountFragment);
+    void inject(DisCountPresenter disCountPresenter);
 
 }

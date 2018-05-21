@@ -6,8 +6,12 @@ package com.jackson.ssrjmvp.presenter; /**
 import com.jackson.ssrjmvp.apiservice.MyCallBack;
 import com.jackson.ssrjmvp.bean.ShopBean;
 import com.jackson.ssrjmvp.bean.parameter.DisCountBody;
+import com.jackson.ssrjmvp.dagger.component.DaggerDiscountComponent;
+import com.jackson.ssrjmvp.dagger.module.DisCountModule;
 import com.jackson.ssrjmvp.model.DisCountModel;
 import com.jackson.ssrjmvp.view.IView;
+
+import javax.inject.Inject;
 
 import io.reactivex.disposables.Disposable;
 
@@ -21,7 +25,9 @@ import io.reactivex.disposables.Disposable;
 public class DisCountPresenter {
 
     private IView.IDisCountView mIDisCountView;
-    private DisCountModel mDisCountModel;
+   // private DisCountModel mDisCountModel;
+    @Inject
+    DisCountModel mDisCountModel;
 
     /**
      * 构造方法
@@ -29,7 +35,16 @@ public class DisCountPresenter {
      */
     public DisCountPresenter(IView.IDisCountView iDisCountView) {
         this.mIDisCountView = iDisCountView;
-        mDisCountModel = new DisCountModel();
+       //  mDisCountModel = new DisCountModel();
+        inject();
+    }
+
+
+    private void inject(){
+        DaggerDiscountComponent.builder()
+                .disCountModule(new DisCountModule())
+                .build()
+                .inject(this);
     }
 
     public void getData(){
