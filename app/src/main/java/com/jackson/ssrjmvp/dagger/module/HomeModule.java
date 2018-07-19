@@ -5,8 +5,8 @@ package com.jackson.ssrjmvp.dagger.module; /**
 
 import com.jackson.ssrjmvp.apiservice.JsNetworkService;
 import com.jackson.ssrjmvp.apiservice.RetrofitClient;
-import com.jackson.ssrjmvp.model.DisCountModel;
-import com.jackson.ssrjmvp.presenter.DisCountPresenter;
+import com.jackson.ssrjmvp.model.HomeModel;
+import com.jackson.ssrjmvp.presenter.HomePresenter;
 import com.jackson.ssrjmvp.utils.Constant;
 import com.jackson.ssrjmvp.view.IView;
 
@@ -22,14 +22,14 @@ import dagger.Provides;
  * since 2017 10 25
  */
 @Module
-public class DisCountModule {
+public class HomeModule {
 
-    private IView.IDisCountView discountView;
+    private IView.IHomeView mIHomeView;
 
     /**
      * 构造方法，在DisCountPresenter导入时是不需要参数的
      */
-    public DisCountModule(){
+    public HomeModule(){
 
     }
 
@@ -37,33 +37,33 @@ public class DisCountModule {
      * 构造方法，在DisCountFragment导入时需要一个IView.IDisCountView对象
      * @param view
      */
-    public DisCountModule(IView.IDisCountView view){
-        this.discountView=view;
+    public HomeModule(IView.IHomeView view){
+        this.mIHomeView=view;
     }
 
     /**
-     * 提供LoginPresenter
+     * 提供HotShowPresenter
      * @param
      * @return
      */
     @Provides
     @Singleton
-    DisCountPresenter provideDisCountPresenter(IView.IDisCountView iDiscountView){
-        return new DisCountPresenter(iDiscountView);
+    HomePresenter provideHomePresenter(IView.IHomeView iHomeView){
+        return new HomePresenter(iHomeView);
     }
 
     @Provides
     @Singleton
-    IView.IDisCountView provideIDisCountView(){
-        return discountView;
+    IView.IHomeView provideIHomeView(){
+        return mIHomeView;
     }
 
 
 
     @Provides
     @Singleton
-    DisCountModel provideDisCountModel(JsNetworkService jsNetworkService){
-        return new DisCountModel(jsNetworkService);
+    HomeModel provideHomeModel(JsNetworkService jsNetworkService){
+        return new HomeModel(jsNetworkService);
     }
 
     @Provides
@@ -75,7 +75,7 @@ public class DisCountModule {
     @Provides
     @Singleton
     RetrofitClient provideRetrofitClient(){
-        return new  RetrofitClient(Constant.baseUrl);
+        return new  RetrofitClient(Constant.baseUrlJD);
     }
 
 }

@@ -20,6 +20,7 @@ public class JacksonApplication extends Application {
     public void onCreate() {
         super.onCreate();
         jsApp = this;
+     //   ClassicsFooter.REFRESH_FOOTER_FINISH="";
     }
 
     public static JacksonApplication getInstance() {

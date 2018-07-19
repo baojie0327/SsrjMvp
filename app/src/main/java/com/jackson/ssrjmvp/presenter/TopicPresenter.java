@@ -6,9 +6,9 @@ package com.jackson.ssrjmvp.presenter; /**
 import com.jackson.ssrjmvp.apiservice.MyCallBack;
 import com.jackson.ssrjmvp.bean.ShopBean;
 import com.jackson.ssrjmvp.bean.parameter.DisCountBody;
-import com.jackson.ssrjmvp.dagger.component.DaggerDiscountComponent;
-import com.jackson.ssrjmvp.dagger.module.DisCountModule;
-import com.jackson.ssrjmvp.model.DisCountModel;
+import com.jackson.ssrjmvp.dagger.component.DaggerTopicComponent;
+import com.jackson.ssrjmvp.dagger.module.TopicModule;
+import com.jackson.ssrjmvp.model.TopicModel;
 import com.jackson.ssrjmvp.view.IView;
 
 import javax.inject.Inject;
@@ -16,33 +16,33 @@ import javax.inject.Inject;
 import io.reactivex.disposables.Disposable;
 
 /**
- * class description here
+ * 资讯
  *
  * @author Jackson
  * @version 1.0.0
  *          since 2018 02 06
  */
-public class DisCountPresenter {
+public class TopicPresenter {
 
-    private IView.IDisCountView mIDisCountView;
+    private IView.ITopicView mITopicView;
    // private DisCountModel mDisCountModel;
     @Inject
-    DisCountModel mDisCountModel;
+   TopicModel mTopicModel;
 
     /**
      * 构造方法
-     * @param iDisCountView
+     * @param iTopicView
      */
-    public DisCountPresenter(IView.IDisCountView iDisCountView) {
-        this.mIDisCountView = iDisCountView;
+    public TopicPresenter(IView.ITopicView iTopicView) {
+        this.mITopicView = iTopicView;
        //  mDisCountModel = new DisCountModel();
         inject();
     }
 
 
     private void inject(){
-        DaggerDiscountComponent.builder()
-                .disCountModule(new DisCountModule())
+        DaggerTopicComponent.builder()
+                .topicModule(new TopicModule())
                 .build()
                 .inject(this);
     }
@@ -58,12 +58,12 @@ public class DisCountPresenter {
         disCountBody.setLatitude("39.933080");
         disCountBody.setLongitude("116.515896");
 
-        mDisCountModel.getData(disCountBody, new MyCallBack<ShopBean>() {
+        mTopicModel.getData(disCountBody, new MyCallBack<ShopBean>() {
             @Override
             public void onSuccess(ShopBean response) {
                 if (response.getStatus().equals("1")){
                    // LogUtil.d("response=="+response.getMerchantList().size());
-                    mIDisCountView.setData(response.getMerchantList());
+                    mITopicView.setData(response.getMerchantList());
                 }
             }
 

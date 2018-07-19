@@ -3,7 +3,9 @@ package com.jackson.ssrjmvp.utils;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
@@ -183,5 +185,17 @@ public class CommonMethod {
         return matcher.matches();
     }
 
-
+    /**
+     * lvliheng
+     * dp 转换成 px
+     * @param context
+     * @param dp
+     * @return
+     */
+    public static int convertDpToPixel(Context context, float dp){
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float px = dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        return (int) px;
+    }
 }

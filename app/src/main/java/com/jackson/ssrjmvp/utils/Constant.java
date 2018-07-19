@@ -14,8 +14,11 @@ package com.jackson.ssrjmvp.utils;
 public class Constant {
     public static boolean LOG_DEBUG = true; //控制工程的log信息打印
 
-    public static final String baseUrl="https://member.hybunion.cn/";
+    public static final String baseUrl = "https://member.hybunion.cn/";
+    public static final String baseUrlMoive = "https://api.douban.com/";
+    public static final String baseUrlJD = "https://yaoser.jd.com";
 
+    public static final int PAGE_COUNT = 5;  // 每页的个数
 
 
 }

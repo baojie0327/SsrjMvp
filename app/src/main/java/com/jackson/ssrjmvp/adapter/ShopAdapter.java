@@ -19,7 +19,7 @@ import com.jackson.ssrjmvp.bean.ShopBean;
 import java.util.List;
 
 /**
- * class description here
+ * 资讯界面的适配器
  *
  * @author Jackson
  * @version 1.0.0
@@ -110,7 +110,7 @@ public class ShopAdapter extends BaseQuickAdapter<ShopBean.ShopDetails, BaseView
 
         RequestOptions options = new RequestOptions()
                 .placeholder(R.drawable.default_square_four)
-              //  .transform(new GlideCircleTransform(mContext))
+                //  .transform(new GlideCircleTransform(mContext))
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
 
 

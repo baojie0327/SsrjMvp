@@ -17,9 +17,9 @@ import android.widget.TextView;
 import com.jackson.ssrjmvp.R;
 import com.jackson.ssrjmvp.adapter.ShopAdapter;
 import com.jackson.ssrjmvp.bean.ShopBean;
-import com.jackson.ssrjmvp.dagger.component.DaggerDiscountComponent;
-import com.jackson.ssrjmvp.dagger.module.DisCountModule;
-import com.jackson.ssrjmvp.presenter.DisCountPresenter;
+import com.jackson.ssrjmvp.dagger.component.DaggerTopicComponent;
+import com.jackson.ssrjmvp.dagger.module.TopicModule;
+import com.jackson.ssrjmvp.presenter.TopicPresenter;
 import com.jackson.ssrjmvp.view.IView;
 
 import java.util.ArrayList;
@@ -34,13 +34,13 @@ import butterknife.Unbinder;
 import io.reactivex.disposables.Disposable;
 
 /**
- * class description here
+ * 资讯界面，hrt的数据
  *
  * @author Jackson
  * @version 1.0.0
  *          since 2017 09 14
  */
-public class DisCountFragment extends Fragment implements IView.IDisCountView{
+public class TopicFragment extends Fragment implements IView.ITopicView{
     @BindView(R.id.ll_back)
     LinearLayout mLlBack;
     @BindView(R.id.tv_head_title)
@@ -54,7 +54,7 @@ public class DisCountFragment extends Fragment implements IView.IDisCountView{
     private ShopAdapter mShopAdapter;
 
     @Inject
-    DisCountPresenter mDisCountPresenter;
+    TopicPresenter mTopicPresenter;
 
   //  private DisCountPresenter mDisCountPresenter=new DisCountPresenter(this);
 
@@ -77,7 +77,7 @@ public class DisCountFragment extends Fragment implements IView.IDisCountView{
             unbinder = ButterKnife.bind(this, view);
             inject();
             initView();
-            mDisCountPresenter.getData();
+            mTopicPresenter.getData();
         }
 
         return view;
@@ -87,8 +87,8 @@ public class DisCountFragment extends Fragment implements IView.IDisCountView{
      * inject
      */
     private void inject(){
-        DaggerDiscountComponent.builder()
-                .disCountModule(new DisCountModule(this))
+        DaggerTopicComponent.builder()
+                .topicModule(new TopicModule(this))
                 .build()
                 .inject(this);
     }
@@ -128,5 +128,19 @@ public class DisCountFragment extends Fragment implements IView.IDisCountView{
     public void closeDispose(Disposable disposable) {
 
     }
+
+
+    /**
+     *提供Fragment实例
+     * @return
+     */
+    public static TopicFragment newInstance() {
+        TopicFragment fragment = new TopicFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+
 }
 

@@ -15,4 +15,7 @@
     <string name="forget_password">忘记密码</string>
     <string name="quickly_login">手机号快捷登录</string>
     <string name="use_third_party_account_login">第三方账号登录</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -28,5 +28,17 @@ public class MineFragment extends Fragment{
         }
         return view;
     }
+
+
+    /**
+     *提供Fragment实例
+     * @return
+     */
+    public static MineFragment newInstance() {
+        MineFragment fragment = new MineFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
 }
 

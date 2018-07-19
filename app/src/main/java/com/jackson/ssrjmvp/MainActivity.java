@@ -14,9 +14,10 @@ import com.ashokvarma.bottomnavigation.TextBadgeItem;
 import com.jackson.ssrjmvp.utils.SharedPreferencesUtil;
 import com.jackson.ssrjmvp.view.activity.BaseActivity;
 import com.jackson.ssrjmvp.view.activity.LoginActivity;
-import com.jackson.ssrjmvp.view.fragment.DisCountFragment;
+import com.jackson.ssrjmvp.view.fragment.HomeFragment;
+import com.jackson.ssrjmvp.view.fragment.HotShowFragment;
 import com.jackson.ssrjmvp.view.fragment.MineFragment;
-import com.jackson.ssrjmvp.view.fragment.NearbyFragment;
+import com.jackson.ssrjmvp.view.fragment.TopicFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,8 +35,9 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     private ShapeBadgeItem mShapeBadgeItem;
     private TextBadgeItem mTextBadgeItem;
 
-    private NearbyFragment mNearbyFragment;
-    private DisCountFragment mDisCountFragment;
+    private HomeFragment mHomeFragment;  // 首页
+    private HotShowFragment mHotShowFragment;
+    private TopicFragment mTopicFragment;
     private MineFragment mMineFragment;
 
     // Fragment管理器，和执行器
@@ -94,6 +96,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
          */
         mBottomNavigationBar
                 .addItem(new BottomNavigationItem(R.mipmap.tab_home_pressed, "首页").setActiveColorResource(R.color.main_color).setInactiveIconResource(R.mipmap.tab_home_normal).setInActiveColorResource(R.color.icon_color))
+                .addItem(new BottomNavigationItem(R.mipmap.tab_nearby, "热映").setActiveColorResource(R.color.main_color).setInactiveIconResource(R.mipmap.tab_nearby_off).setInActiveColorResource(R.color.icon_color))
                 .addItem(new BottomNavigationItem(R.mipmap.tab_benefits_check, "资讯").setActiveColorResource(R.color.main_color).setInactiveIconResource(R.mipmap.tab_benefits_check_no).setInActiveColorResource(R.color.icon_color).setBadgeItem(mShapeBadgeItem))
                 .addItem(new BottomNavigationItem(R.mipmap.tab_mine, "我的").setActiveColorResource(R.color.main_color).setInactiveIconResource(R.mipmap.tab_mine_off).setInActiveColorResource(R.color.icon_color).setBadgeItem(mTextBadgeItem))
                 .setFirstSelectedPosition(lastSelectedPosition)
@@ -112,10 +115,10 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
 
     private void setDefaultFragment() {
-        mNearbyFragment=new NearbyFragment();
+        mHomeFragment=new HomeFragment();
         mManager = getSupportFragmentManager();
         mTransaction = mManager.beginTransaction();
-        mTransaction.add(R.id.ll_content, mNearbyFragment);
+        mTransaction.add(R.id.ll_content, mHomeFragment);
         mTransaction.commit();
     }
 
@@ -135,32 +138,41 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
          *
          */
         switch (position){
-            case 0:
-                if (mNearbyFragment == null) {
-                    mNearbyFragment = new NearbyFragment();
+            case 0:   // 首页
+                if (mHomeFragment == null) {
+                    mHomeFragment = HomeFragment.newInstance();
                     mTransaction.add(R.id.ll_content,
-                            mNearbyFragment);
+                            mHomeFragment);
                 } else {
-                    mTransaction.show(mNearbyFragment);
+                    mTransaction.show(mHomeFragment);
                 }
                 break;
-            case 1:
-                if (mDisCountFragment == null) {
-                    mDisCountFragment = new DisCountFragment();
+            case 1:    // 热映
+                if (mHotShowFragment == null) {
+                    mHotShowFragment =  HotShowFragment.newInstance();
                     mTransaction.add(R.id.ll_content,
-                            mDisCountFragment);
+                            mHotShowFragment);
                 } else {
-                    mTransaction.show(mDisCountFragment);
+                    mTransaction.show(mHotShowFragment);
                 }
                 break;
-            case 2:
+            case 2:  // 资讯
+                if (mTopicFragment == null) {
+                    mTopicFragment = TopicFragment.newInstance();
+                    mTransaction.add(R.id.ll_content,
+                            mTopicFragment);
+                } else {
+                    mTransaction.show(mTopicFragment);
+                }
+                break;
+            case 3:  // 我的
                 isLogin=mSharedPreferencesUtil.getBoolean(SharedPreferencesUtil.LOGIN_STATUS, false);
                 if (isLogin==false){
                     Intent intent=new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }else {
                     if (mMineFragment == null) {
-                        mMineFragment = new MineFragment();
+                        mMineFragment = MineFragment.newInstance();
                         mTransaction.add(R.id.ll_content,
                                 mMineFragment);
                     } else {
@@ -190,11 +202,15 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
      * @param transaction
      */
     private void hideFragment(FragmentTransaction transaction){
-        if (mNearbyFragment != null){
-            transaction.hide(mNearbyFragment);
+        if (mHomeFragment != null){
+            transaction.hide(mHomeFragment);
         }
-        if (mDisCountFragment != null){
-            transaction.hide(mDisCountFragment);
+
+        if (mHotShowFragment != null){
+            transaction.hide(mHotShowFragment);
+        }
+        if (mTopicFragment != null){
+            transaction.hide(mTopicFragment);
         }
         if (mMineFragment != null){
             transaction.hide(mMineFragment);
