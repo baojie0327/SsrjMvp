@@ -1,5 +1,6 @@
 package com.jackson.ssrjmvp.view.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,13 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
+import com.alibaba.android.vlayout.layout.GridLayoutHelper;
+import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.jackson.ssrjmvp.R;
+import com.jackson.ssrjmvp.adapter.BaseDelegateAdapter;
 import com.jackson.ssrjmvp.adapter.BaseDelegateAdapter1;
 import com.jackson.ssrjmvp.adapter.home.BannerAdapter;
+import com.jackson.ssrjmvp.adapter.home.GridMenuAdapter;
+import com.jackson.ssrjmvp.adapter.home.MarqueeAdapter;
 import com.jackson.ssrjmvp.bean.HomeBean;
 import com.jackson.ssrjmvp.dagger.component.DaggerHomeComponent;
 import com.jackson.ssrjmvp.dagger.module.HomeModule;
@@ -54,7 +61,9 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
     @Inject
     HomePresenter mHomePresenter;
 
-    private BannerAdapter mBannerAdapter;
+    private BannerAdapter mBannerAdapter;  // Banner适配器
+    private GridMenuAdapter mGridMenuAdapter;  // 功能菜单适配器
+    private MarqueeAdapter mMarqueeAdapter; // 公告适配器
 
     private List<HomeBean.DataBean> mDataList;  // 数据源
     private List<DelegateAdapter.Adapter> mAdapters;
@@ -142,6 +151,8 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
         LogUtil.d("size==" + mDatatList.size());
         this.mDataList = mDatatList;
         setBannerData(mDatatList.get(0).getItems());
+        setGridMenu(mDatatList.get(1).getItems());
+        setMarquee(mDatatList.get(2).getItems());
         setAllData();
     }
 
@@ -157,22 +168,87 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
             imgList.add("http:" + items.get(i).getImg());
         }
         mBannerAdapter = new BannerAdapter(getActivity(), imgList, singleLayoutHelper, R.layout.item_home_banner_layout, 1);
-       /* mBaseAdApter = new BaseDelegateAdapter1(getActivity(), new LinearLayoutHelper(), R.layout.item_home_banner_layout, 1, 1) {
+        mBannerAdapter.setOnItemClickListener(new BaseDelegateAdapter.OnItemClickListener() {
             @Override
-            public void onBindViewHolder(BaseViewHolder holder, int position) {
-                super.onBindViewHolder(holder, position);
-                Banner mBanner = holder.getView(R.id.banner);
-                //设置图片加载器
-                mBanner.setImageLoader(new GlideImageLoader());
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                layoutParams.height = CommonMethod.convertDpToPixel(getActivity(), 200);
-                mBanner.setLayoutParams(layoutParams);
-                mBanner.setImages(imgList);
-                mBanner.start();
+            public void onItemClick(View view, int position) {
+                Toast.makeText(getActivity(), "click--" + position, Toast.LENGTH_SHORT).show();
             }
-        };*/
+        });
     }
+
+    /**
+     * 设置功能按钮
+     *
+     * @param items
+     */
+    private void setGridMenu(List<HomeBean.DataBean.ItemsBean> items) {
+        GridLayoutHelper gridLayoutHelper = new GridLayoutHelper(5);
+        //  gridLayoutHelper.setMarginTop(300);  //设置距离顶部的距离
+        //  gridLayoutHelper.setItemCount(30);  // 设置布局里Item个数
+        gridLayoutHelper.setPadding(0, 16, 0, 0); // 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
+        // gridLayoutHelper.setMargin(20,10,20,10);   //设置LayoutHelper边缘相对父控件（即RecyclerView）的距离
+        //  gridLayoutHelper.setAspectRatio(6); // 设置设置布局内每行布局的宽与高的比
+        //  gridLayoutHelper.setWeights(new float[]{40, 10, 20,20,10});//设置每行中 每个网格宽度 占 每行总宽度 的比例
+        gridLayoutHelper.setVGap(16);  // 控制子元素之间的垂直间距
+        gridLayoutHelper.setHGap(0);  // 控制子元素之间的水平间距
+        gridLayoutHelper.setAutoExpand(false);//是否自动填充空白区域
+        //   gridLayoutHelper.setSpanCount(3);// 设置每行多少个网格
+        gridLayoutHelper.setBgColor(Color.WHITE); // 设置背景颜色
+        // 通过自定义SpanSizeLookup来控制某个Item的占网格个数
+       /* gridLayoutHelper.setSpanSizeLookup(new GridLayoutHelper.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (position < 3) {
+                    return 5;
+                } else {
+                    return 1;
+                }
+
+            }
+        });*/
+        mGridMenuAdapter = new GridMenuAdapter(getActivity(), items, gridLayoutHelper, R.layout.item_home_gridmenu_layout, items.size());
+        // 监听
+        mGridMenuAdapter.setOnItemClickListener(new BaseDelegateAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(getActivity(), "click--" + position, Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+        mGridMenuAdapter.setOnItemChildClickListener(new BaseDelegateAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(View view, int position) {
+                switch (view.getId()) {
+                    case R.id.img_grid_menu:
+                        Toast.makeText(getActivity(), "click-image-" + position, Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.tv_grid_menu:
+                        Toast.makeText(getActivity(), "click-tv-" + position, Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        });
+    }
+
+    /**
+     * 设置公告
+     */
+    private void setMarquee(List<HomeBean.DataBean.ItemsBean> items) {
+        LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
+        List<String> infoList = new ArrayList<>();
+        for (int i = 0; i < items.size(); i++) {
+            infoList.add(items.get(i).getTitle());
+        }
+        mMarqueeAdapter = new MarqueeAdapter(getActivity(), infoList, linearLayoutHelper, R.layout.item_home_marquee_layout, 1);
+        mMarqueeAdapter.setOnItemClickListener(new BaseDelegateAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(getActivity(), "click--" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
     /**
      * 设置所有数据
@@ -180,6 +256,8 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
     private void setAllData() {
         // 添加Banner
         mAdapters.add(mBannerAdapter);
+        mAdapters.add(mGridMenuAdapter);
+        mAdapters.add(mMarqueeAdapter);
         delegateAdapter.setAdapters(mAdapters);
         mRecyclerView.setAdapter(delegateAdapter);
 

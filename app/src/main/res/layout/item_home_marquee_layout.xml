@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/general_gray"></View>
+
+    <LinearLayout
+        android:id="@+id/ll_grid_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:padding="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="精选"/>
+        <View
+            android:layout_width="5dp"
+            android:layout_height="20dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/red"/>
+
+        <TextView
+            android:id="@+id/tv_grid_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"/>
+
+        <com.sunfusheng.marqueeview.MarqueeView
+            android:id="@+id/marqueeView"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            app:mvAnimDuration="1000"
+            android:layout_marginLeft="10dp"
+            app:mvDirection="bottom_to_top"
+            app:mvInterval="2000"
+            app:mvTextColor="@color/text_black_color"
+            app:mvTextSize="16sp"
+            app:mvSingleLine="true"></com.sunfusheng.marqueeview.MarqueeView>
+    </LinearLayout>
+
+
+</LinearLayout>

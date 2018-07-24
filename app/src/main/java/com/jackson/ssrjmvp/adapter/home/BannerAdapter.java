@@ -14,12 +14,13 @@ import com.jackson.ssrjmvp.adapter.BaseDelegateAdapter;
 import com.jackson.ssrjmvp.utils.CommonMethod;
 import com.jackson.ssrjmvp.utils.GlideImageLoader;
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * class description here
+ * banner的适配器
  *
  * @author Jackson
  * @version 1.0.0
@@ -28,6 +29,7 @@ import java.util.List;
 public class BannerAdapter extends BaseDelegateAdapter<String, BaseViewHolder> {
 
     private List<String> imgUrl = new ArrayList<>();
+
 
     /**
      * 构造方法
@@ -45,7 +47,7 @@ public class BannerAdapter extends BaseDelegateAdapter<String, BaseViewHolder> {
 
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
+    protected void convert(final BaseViewHolder helper, String item, final int pos) {
 
         Banner mBanner = helper.getView(R.id.banner);
         //设置图片加载器
@@ -56,9 +58,14 @@ public class BannerAdapter extends BaseDelegateAdapter<String, BaseViewHolder> {
         mBanner.setLayoutParams(layoutParams);
         mBanner.setImages(imgUrl);
         mBanner.start();
-
+       // Banner监听
+        mBanner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                mOnItemClickListener.onItemClick(helper.itemView,position);
+            }
+        });
     }
-
 
 }
 

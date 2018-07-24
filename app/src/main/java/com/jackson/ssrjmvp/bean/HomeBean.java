@@ -73,8 +73,13 @@ public class HomeBean extends BaseBean<HomeBean.DataBean>{
             private String bigImg;
             private String img;
             private String url;
-            private Object title;
+            private String title;
             private int sort;
+            private String id;
+            private String name;
+            private String type;
+            private ItemBean item;
+
 
             public String getBigImg() {
                 return bigImg;
@@ -100,11 +105,11 @@ public class HomeBean extends BaseBean<HomeBean.DataBean>{
                 this.url = url;
             }
 
-            public Object getTitle() {
+            public String getTitle() {
                 return title;
             }
 
-            public void setTitle(Object title) {
+            public void setTitle(String title) {
                 this.title = title;
             }
 
@@ -115,6 +120,72 @@ public class HomeBean extends BaseBean<HomeBean.DataBean>{
             public void setSort(int sort) {
                 this.sort = sort;
             }
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public String getType() {
+                return type;
+            }
+
+            public void setType(String type) {
+                this.type = type;
+            }
+
+            public ItemBean getItem() {
+                return item;
+            }
+
+            public void setItem(ItemBean item) {
+                this.item = item;
+            }
+
+            public static class ItemBean{
+                private String img;
+                private String type;
+                private String content;
+
+                public String getImg() {
+                    return img;
+                }
+
+                public void setImg(String img) {
+                    this.img = img;
+                }
+
+                public String getType() {
+                    return type;
+                }
+
+                public void setType(String type) {
+                    this.type = type;
+                }
+
+                public String getContent() {
+                    return content;
+                }
+
+                public void setContent(String content) {
+                    this.content = content;
+                }
+            }
+
+
+
+
         }
     }
 

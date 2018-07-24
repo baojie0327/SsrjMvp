@@ -7,6 +7,7 @@ import android.content.Context;
 import android.support.annotation.IntRange;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
@@ -30,6 +31,9 @@ public abstract class BaseDelegateAdapter<T, K extends BaseViewHolder> extends D
     protected Context mContext;
     private List<T> mDataList;
 
+    protected OnItemClickListener mOnItemClickListener;   // item点击监听
+    protected OnItemChildClickListener mOnItemChildClickListener; // child item 点击监听
+
     /**
      * 构造方法
      *
@@ -38,7 +42,7 @@ public abstract class BaseDelegateAdapter<T, K extends BaseViewHolder> extends D
      * @param lauoutId
      * @param
      */
-    protected BaseDelegateAdapter(Context context, List<T> list, LayoutHelper layoutHelper, int lauoutId, int count) {
+    public BaseDelegateAdapter(Context context, List<T> list, LayoutHelper layoutHelper, int lauoutId, int count) {
         this.mContext = context;
         this.mDataList = list;
         this.mLayoutHelper = layoutHelper;
@@ -59,7 +63,7 @@ public abstract class BaseDelegateAdapter<T, K extends BaseViewHolder> extends D
 
     @Override
     public void onBindViewHolder(K holder, int position) {
-        convert(holder, getItem(position));
+        convert(holder, getItem(position),position);
     }
 
 
@@ -68,7 +72,7 @@ public abstract class BaseDelegateAdapter<T, K extends BaseViewHolder> extends D
         return mCount;
     }
 
-    protected abstract void convert(K helper, T item);
+    protected abstract void convert(K helper, T item,int position);
 
     @Nullable
     public T getItem(@IntRange(from = 0) int position) {
@@ -76,6 +80,25 @@ public abstract class BaseDelegateAdapter<T, K extends BaseViewHolder> extends D
             return mDataList.get(position);
         else
             return null;
+    }
+
+    /**
+     * 监听接口
+     */
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
+    public interface OnItemChildClickListener {
+        void onItemChildClick(View view, int position);
+    }
+
+    public void setOnItemClickListener(@Nullable OnItemClickListener listener) {
+        mOnItemClickListener = listener;
+    }
+
+    public void setOnItemChildClickListener(OnItemChildClickListener listener) {
+        mOnItemChildClickListener = listener;
     }
 
 }
