@@ -21,7 +21,10 @@ import com.jackson.ssrjmvp.R;
 import com.jackson.ssrjmvp.adapter.BaseDelegateAdapter;
 import com.jackson.ssrjmvp.adapter.BaseDelegateAdapter1;
 import com.jackson.ssrjmvp.adapter.home.BannerAdapter;
+import com.jackson.ssrjmvp.adapter.home.CareChoiceAdapter;
+import com.jackson.ssrjmvp.adapter.home.EverPrepareAdapter;
 import com.jackson.ssrjmvp.adapter.home.GridMenuAdapter;
+import com.jackson.ssrjmvp.adapter.home.HotItemAdapter;
 import com.jackson.ssrjmvp.adapter.home.MarqueeAdapter;
 import com.jackson.ssrjmvp.bean.HomeBean;
 import com.jackson.ssrjmvp.dagger.component.DaggerHomeComponent;
@@ -64,6 +67,9 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
     private BannerAdapter mBannerAdapter;  // Banner适配器
     private GridMenuAdapter mGridMenuAdapter;  // 功能菜单适配器
     private MarqueeAdapter mMarqueeAdapter; // 公告适配器
+    private HotItemAdapter mHotItemAdapter;  // 七月爆品
+    private EverPrepareAdapter mEverPrepareAdapter; // 常备好药
+    private CareChoiceAdapter mCareChoiceAdapter; // 超值精选
 
     private List<HomeBean.DataBean> mDataList;  // 数据源
     private List<DelegateAdapter.Adapter> mAdapters;
@@ -153,6 +159,9 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
         setBannerData(mDatatList.get(0).getItems());
         setGridMenu(mDatatList.get(1).getItems());
         setMarquee(mDatatList.get(2).getItems());
+        setHotItem(mDatatList.get(3).getItems());
+        setPrepare(mDatatList.get(4).getItems());
+        setCareChoice(mDatatList.get(5).getItems());
         setAllData();
     }
 
@@ -249,6 +258,110 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
         });
     }
 
+    /**
+     * 设置七月爆品
+     */
+    private void setHotItem(List<HomeBean.DataBean.ItemsBean> items) {
+        GridLayoutHelper gridLayoutHelper = new GridLayoutHelper(4);
+        gridLayoutHelper.setPadding(0, 0, 0, 0); // 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
+        gridLayoutHelper.setVGap(0);  // 控制子元素之间的垂直间距
+        gridLayoutHelper.setHGap(0);  // 控制子元素之间的水平间距
+        //  gridLayoutHelper.setMargin(20,10,20,10);
+        gridLayoutHelper.setAutoExpand(true);//是否自动填充空白区域
+        gridLayoutHelper.setBgColor(Color.WHITE); // 设置背景颜色
+
+        // 通过自定义SpanSizeLookup来控制某个Item的占网格个数
+        final int count = mBannerAdapter.getItemCount() + mGridMenuAdapter.getItemCount() + mMarqueeAdapter.getItemCount();
+        gridLayoutHelper.setSpanSizeLookup(new GridLayoutHelper.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (position <= count + 1) {
+                    return 2;
+                } else {
+                    return 1;
+                }
+
+
+            }
+        });
+        mHotItemAdapter = new HotItemAdapter(getActivity(), items, gridLayoutHelper, R.layout.item_home_hotitem_layout, items.size());
+        // 监听
+        mHotItemAdapter.setOnItemClickListener(new BaseDelegateAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(getActivity(), "click--" + position, Toast.LENGTH_SHORT).show();
+            }
+
+        });
+    }
+
+    /**
+     * 设置常备好药
+     *
+     * @param items
+     */
+    private void setPrepare(List<HomeBean.DataBean.ItemsBean> items) {
+        SingleLayoutHelper singleLayoutHelper = new SingleLayoutHelper();
+        mEverPrepareAdapter = new EverPrepareAdapter(getActivity(), items, singleLayoutHelper, R.layout.item_home_everprepare_layout, 1);
+        // 监听
+        mEverPrepareAdapter.setOnItemClickListener(new BaseDelegateAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(getActivity(), "click--" + position, Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+      /*  mEverPrepareAdapter.setOnItemChildClickListener(new BaseDelegateAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(View view, int position) {
+                switch (view.getId()) {
+                    case R.id.img_prepare_menu:
+                        Toast.makeText(getActivity(), "click-image-" + position, Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.tv_prepare_menu:
+                        Toast.makeText(getActivity(), "click-tv-" + position, Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        });*/
+    }
+
+    /**
+     * 设置超值精选
+     * @param items
+     */
+    private void setCareChoice(List<HomeBean.DataBean.ItemsBean> items){
+        LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
+        linearLayoutHelper.setAspectRatio(4.0f);
+        linearLayoutHelper.setDividerHeight(5);
+        linearLayoutHelper.setMargin(0, 0, 0, 0);
+        linearLayoutHelper.setPadding(0, 0, 0, 10);
+        mCareChoiceAdapter=new CareChoiceAdapter(getActivity(),items,linearLayoutHelper,R.layout.item__home_choice_layout,items.size());
+        // 监听
+        mCareChoiceAdapter.setOnItemClickListener(new BaseDelegateAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(getActivity(), "click--" + position, Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+        mCareChoiceAdapter.setOnItemChildClickListener(new BaseDelegateAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(View view, int position) {
+                switch (view.getId()) {
+                    case R.id.img_choice_menu:
+                        Toast.makeText(getActivity(), "click-image-" + position, Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.tv_choice_name:
+                        Toast.makeText(getActivity(), "click-tv-" + position, Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        });
+    }
+
 
     /**
      * 设置所有数据
@@ -258,6 +371,9 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
         mAdapters.add(mBannerAdapter);
         mAdapters.add(mGridMenuAdapter);
         mAdapters.add(mMarqueeAdapter);
+        mAdapters.add(mHotItemAdapter);
+        mAdapters.add(mEverPrepareAdapter);
+        mAdapters.add(mCareChoiceAdapter);
         delegateAdapter.setAdapters(mAdapters);
         mRecyclerView.setAdapter(delegateAdapter);
 

@@ -157,6 +157,12 @@ public class HomeBean extends BaseBean<HomeBean.DataBean>{
                 private String img;
                 private String type;
                 private String content;
+                private String skuId;
+                private String shopId;
+                private String factoryName;
+                private String mainImg;
+                private String shopName;
+                private String skuName;
 
                 public String getImg() {
                     return img;
@@ -180,6 +186,54 @@ public class HomeBean extends BaseBean<HomeBean.DataBean>{
 
                 public void setContent(String content) {
                     this.content = content;
+                }
+
+                public String getSkuId() {
+                    return skuId;
+                }
+
+                public void setSkuId(String skuId) {
+                    this.skuId = skuId;
+                }
+
+                public String getShopId() {
+                    return shopId;
+                }
+
+                public void setShopId(String shopId) {
+                    this.shopId = shopId;
+                }
+
+                public String getFactoryName() {
+                    return factoryName;
+                }
+
+                public void setFactoryName(String factoryName) {
+                    this.factoryName = factoryName;
+                }
+
+                public String getMainImg() {
+                    return mainImg;
+                }
+
+                public void setMainImg(String mainImg) {
+                    this.mainImg = mainImg;
+                }
+
+                public String getShopName() {
+                    return shopName;
+                }
+
+                public void setShopName(String shopName) {
+                    this.shopName = shopName;
+                }
+
+                public String getSkuName() {
+                    return skuName;
+                }
+
+                public void setSkuName(String skuName) {
+                    this.skuName = skuName;
                 }
             }
 

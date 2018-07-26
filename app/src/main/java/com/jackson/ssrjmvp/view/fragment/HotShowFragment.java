@@ -15,12 +15,14 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jackson.ssrjmvp.R;
 import com.jackson.ssrjmvp.adapter.HotShowAdapter;
 import com.jackson.ssrjmvp.bean.HotSHowBean;
 import com.jackson.ssrjmvp.dagger.component.DaggerHotShowComponent;
 import com.jackson.ssrjmvp.dagger.module.HotShowModule;
 import com.jackson.ssrjmvp.presenter.HotShowPresenter;
+import com.jackson.ssrjmvp.utils.CommonMethod;
 import com.jackson.ssrjmvp.utils.Constant;
 import com.jackson.ssrjmvp.utils.LogUtil;
 import com.jackson.ssrjmvp.view.IView;
@@ -164,6 +166,12 @@ public class HotShowFragment extends Fragment implements IView.IHotShowView {
         LogUtil.d("size==" + mDataList.size());
         mHotShowAdapter = new HotShowAdapter(R.layout.item_hotshow_layout, mDataList);
         mRecyclerView.setAdapter(mHotShowAdapter);
+        mHotShowAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                CommonMethod.showToast(getActivity(),"click--"+position,false);
+            }
+        });
     }
 
     /**

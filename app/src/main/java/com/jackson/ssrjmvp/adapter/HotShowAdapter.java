@@ -53,7 +53,7 @@ public class HotShowAdapter extends BaseQuickAdapter<HotSHowBean.SubjectsBean, B
         // 看过
         helper.setText(R.id.tv_has_see, formatLargeNum(item.getCollect_count()) + "人看过");
 
-
+     //   helper.addOnClickListener(R.id.ll_listener);
     }
 
     /**
