@@ -20,5 +20,16 @@ public class Constant {
 
     public static final int PAGE_COUNT = 5;  // 每页的个数
 
+    public interface viewType {
+        int typeBanner = 1;         //轮播图
+        int typeGvidMenu = 2;      //功能菜单
+        int typeMarquee = 3;       //跑马灯
+        int typeHot = 4;           //七月爆品
+        int typePrepare = 5;      // 常备好药
+        int typeChoice=6;        // 超值精选
+        int typeFix = 7;           //固定布局
+        int typeScrollFix = 8;    //可选固定
+        int typeFloat = 9;         //Float布局
+    }
 
 }

@@ -23,7 +23,7 @@ import java.util.List;
  * @version 1.0.0
  *          since 2018 07 23
  */
-public class GridMenuAdapter extends BaseDelegateAdapter<HomeBean.DataBean.ItemsBean, BaseViewHolder> {
+public class CommendAdapter extends BaseDelegateAdapter<HomeBean.DataBean.ItemsBean, BaseViewHolder> {
 
 
     /**
@@ -36,7 +36,7 @@ public class GridMenuAdapter extends BaseDelegateAdapter<HomeBean.DataBean.Items
      * @param count
      * @param viewTypeItem
      */
-    public GridMenuAdapter(Context context, List<HomeBean.DataBean.ItemsBean> list, LayoutHelper layoutHelper, int lauoutId, int count, int viewTypeItem) {
+    public CommendAdapter(Context context, List<HomeBean.DataBean.ItemsBean> list, LayoutHelper layoutHelper, int lauoutId, int count, int viewTypeItem) {
         super(context, list, layoutHelper, lauoutId, count, viewTypeItem);
     }
 

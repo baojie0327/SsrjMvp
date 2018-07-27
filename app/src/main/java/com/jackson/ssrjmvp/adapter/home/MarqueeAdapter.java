@@ -25,7 +25,6 @@ public class MarqueeAdapter extends BaseDelegateAdapter<String,BaseViewHolder>{
 
     private List<String> infoList = new ArrayList<>();
 
-
     /**
      * 构造方法
      *
@@ -34,11 +33,13 @@ public class MarqueeAdapter extends BaseDelegateAdapter<String,BaseViewHolder>{
      * @param layoutHelper
      * @param lauoutId
      * @param count
+     * @param viewTypeItem
      */
-    public MarqueeAdapter(Context context, List<String> list, LayoutHelper layoutHelper, int lauoutId, int count) {
-        super(context, list, layoutHelper, lauoutId, count);
+    public MarqueeAdapter(Context context, List<String> list, LayoutHelper layoutHelper, int lauoutId, int count, int viewTypeItem) {
+        super(context, list, layoutHelper, lauoutId, count, viewTypeItem);
         infoList=list;
     }
+
 
     @Override
     protected void convert(BaseViewHolder helper, String item, int position) {

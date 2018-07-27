@@ -30,7 +30,6 @@ public class BannerAdapter extends BaseDelegateAdapter<String, BaseViewHolder> {
 
     private List<String> imgUrl = new ArrayList<>();
 
-
     /**
      * 构造方法
      *
@@ -39,9 +38,10 @@ public class BannerAdapter extends BaseDelegateAdapter<String, BaseViewHolder> {
      * @param layoutHelper
      * @param lauoutId
      * @param count
+     * @param viewTypeItem
      */
-    public BannerAdapter(Context context, List<String> list, LayoutHelper layoutHelper, int lauoutId, int count) {
-        super(context, list, layoutHelper, lauoutId, count);
+    public BannerAdapter(Context context, List<String> list, LayoutHelper layoutHelper, int lauoutId, int count, int viewTypeItem) {
+        super(context, list, layoutHelper, lauoutId, count, viewTypeItem);
         imgUrl = list;
     }
 

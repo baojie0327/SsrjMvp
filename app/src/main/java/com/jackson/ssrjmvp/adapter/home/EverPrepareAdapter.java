@@ -37,11 +37,13 @@ public class EverPrepareAdapter extends BaseDelegateAdapter<HomeBean.DataBean.It
      * @param layoutHelper
      * @param lauoutId
      * @param count
+     * @param viewTypeItem
      */
-    public EverPrepareAdapter(Context context, List<HomeBean.DataBean.ItemsBean> list, LayoutHelper layoutHelper, int lauoutId, int count) {
-        super(context, list, layoutHelper, lauoutId, count);
+    public EverPrepareAdapter(Context context, List<HomeBean.DataBean.ItemsBean> list, LayoutHelper layoutHelper, int lauoutId, int count, int viewTypeItem) {
+        super(context, list, layoutHelper, lauoutId, count, viewTypeItem);
         this.mDataList = list;
     }
+
 
     @Override
     protected void convert(final BaseViewHolder helper, HomeBean.DataBean.ItemsBean item, final int position) {

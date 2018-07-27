@@ -13,6 +13,7 @@ import com.jackson.ssrjmvp.R;
 import com.jackson.ssrjmvp.adapter.BaseDelegateAdapter;
 import com.jackson.ssrjmvp.bean.HomeBean;
 import com.jackson.ssrjmvp.utils.GlideUtils;
+import com.jackson.ssrjmvp.utils.LogUtil;
 
 import java.util.List;
 
@@ -26,7 +27,6 @@ import java.util.List;
 public class HotItemAdapter extends BaseDelegateAdapter<HomeBean.DataBean.ItemsBean, BaseViewHolder> {
 
 
-
     /**
      * 构造方法
      *
@@ -35,15 +35,18 @@ public class HotItemAdapter extends BaseDelegateAdapter<HomeBean.DataBean.ItemsB
      * @param layoutHelper
      * @param lauoutId
      * @param count
+     * @param viewTypeItem
      */
-    public HotItemAdapter(Context context, List<HomeBean.DataBean.ItemsBean> list, LayoutHelper layoutHelper, int lauoutId, int count) {
-        super(context, list, layoutHelper, lauoutId, count);
+    public HotItemAdapter(Context context, List<HomeBean.DataBean.ItemsBean> list, LayoutHelper layoutHelper, int lauoutId, int count, int viewTypeItem) {
+        super(context, list, layoutHelper, lauoutId, count, viewTypeItem);
     }
 
     @Override
     protected void convert(final BaseViewHolder helper, HomeBean.DataBean.ItemsBean item, final int position) {
-
+    //    LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    //    helper.getView(R.id.img_hotitem_menu).setLayoutParams(layoutParams);
         // 图片
+        LogUtil.d("hotpos=="+position);
         GlideUtils.loadUrlImage(mContext,
                 "http:" + item.getItem().getImg(),
                 (ImageView) helper.getView(R.id.img_hotitem_menu));

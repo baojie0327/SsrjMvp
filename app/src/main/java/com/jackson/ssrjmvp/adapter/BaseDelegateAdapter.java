@@ -30,6 +30,7 @@ public abstract class BaseDelegateAdapter<T, K extends BaseViewHolder> extends D
     private int mLayoutId = -1;
     protected Context mContext;
     private List<T> mDataList;
+    private int mViewTypeItem = -1;
 
     protected OnItemClickListener mOnItemClickListener;   // item点击监听
     protected OnItemChildClickListener mOnItemChildClickListener; // child item 点击监听
@@ -42,12 +43,13 @@ public abstract class BaseDelegateAdapter<T, K extends BaseViewHolder> extends D
      * @param lauoutId
      * @param
      */
-    public BaseDelegateAdapter(Context context, List<T> list, LayoutHelper layoutHelper, int lauoutId, int count) {
+    public BaseDelegateAdapter(Context context, List<T> list, LayoutHelper layoutHelper, int lauoutId, int count,int viewTypeItem) {
         this.mContext = context;
         this.mDataList = list;
         this.mLayoutHelper = layoutHelper;
         this.mLayoutId = lauoutId;
         this.mCount = count;
+        this.mViewTypeItem = viewTypeItem;
     }
 
     @Override
@@ -58,7 +60,11 @@ public abstract class BaseDelegateAdapter<T, K extends BaseViewHolder> extends D
     @Override
     public K onCreateViewHolder(ViewGroup parent, int viewType) {
      //   this.mContext = parent.getContext();
-        return (K) new BaseViewHolder(LayoutInflater.from(mContext).inflate(mLayoutId, parent, false));
+        if (viewType == mViewTypeItem){
+            return (K) new BaseViewHolder(LayoutInflater.from(mContext).inflate(mLayoutId, parent, false));
+        }
+        return null;
+
     }
 
     @Override
@@ -70,6 +76,14 @@ public abstract class BaseDelegateAdapter<T, K extends BaseViewHolder> extends D
     @Override
     public int getItemCount() {
         return mCount;
+    }
+
+    /**
+     * 必须重写不然会出现滑动不流畅的情况
+     */
+    @Override
+    public int getItemViewType(int position) {
+        return mViewTypeItem;
     }
 
     protected abstract void convert(K helper, T item,int position);
