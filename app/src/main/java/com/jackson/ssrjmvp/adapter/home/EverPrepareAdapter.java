@@ -19,7 +19,7 @@ import com.jackson.ssrjmvp.utils.LogUtil;
 import java.util.List;
 
 /**
- * 常备好药
+ * 常备好药, 线性布局（SingleLayoutHelper）
  *
  * @author Jackson
  * @version 1.0.0

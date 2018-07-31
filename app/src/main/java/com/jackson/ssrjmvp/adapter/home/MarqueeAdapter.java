@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 公告
+ * 公告,LinearLayoutHelper
  * @author Jackson
  * @version 1.0.0
  * since 2018 07 24

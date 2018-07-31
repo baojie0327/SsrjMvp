@@ -15,7 +15,7 @@ import com.jackson.ssrjmvp.adapter.BaseDelegateAdapter;
 import java.util.List;
 
 /**
- * 浮动布局
+ * 浮动布局,FloatLayoutHelper
  *
  * @author Jackson
  * @version 1.0.0

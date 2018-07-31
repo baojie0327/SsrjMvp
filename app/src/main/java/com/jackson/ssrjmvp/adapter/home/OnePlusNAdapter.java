@@ -5,7 +5,9 @@ package com.jackson.ssrjmvp.adapter.home; /**
 
 import android.content.Context;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -13,18 +15,17 @@ import com.jackson.ssrjmvp.R;
 import com.jackson.ssrjmvp.adapter.BaseDelegateAdapter;
 import com.jackson.ssrjmvp.bean.HomeBean;
 import com.jackson.ssrjmvp.utils.GlideUtils;
-import com.jackson.ssrjmvp.utils.LogUtil;
 
 import java.util.List;
 
 /**
- * 七月爆品,GridLayoutHelper
+ * 1拖N布局（OnePlusNLayoutHelper）
  *
  * @author Jackson
  * @version 1.0.0
  *          since 2018 07 23
  */
-public class HotItemAdapter extends BaseDelegateAdapter<HomeBean.DataBean.ItemsBean, BaseViewHolder> {
+public class OnePlusNAdapter extends BaseDelegateAdapter<HomeBean.DataBean.ItemsBean, BaseViewHolder> {
 
 
     /**
@@ -37,32 +38,30 @@ public class HotItemAdapter extends BaseDelegateAdapter<HomeBean.DataBean.ItemsB
      * @param count
      * @param viewTypeItem
      */
-    public HotItemAdapter(Context context, List<HomeBean.DataBean.ItemsBean> list, LayoutHelper layoutHelper, int lauoutId, int count, int viewTypeItem) {
+    public OnePlusNAdapter(Context context, List<HomeBean.DataBean.ItemsBean> list, LayoutHelper layoutHelper, int lauoutId, int count, int viewTypeItem) {
         super(context, list, layoutHelper, lauoutId, count, viewTypeItem);
     }
 
     @Override
     protected void convert(final BaseViewHolder helper, HomeBean.DataBean.ItemsBean item, final int position) {
-    //    LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-    //    helper.getView(R.id.img_hotitem_menu).setLayoutParams(layoutParams);
-        // 图片
-        LogUtil.d("hotpos=="+position);
+        if (position == 0) {
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            layoutParams.setMargins(20, 20, 20, 20);
+            helper.getView(R.id.img_oneplusn_menu).setLayoutParams(layoutParams);
+        }
         GlideUtils.loadUrlImage(mContext,
-                "http:" + item.getItem().getImg(),
-                (ImageView) helper.getView(R.id.img_hotitem_menu));
+                "http:" + item.getItem().getMainImg(),
+                (ImageView) helper.getView(R.id.img_oneplusn_menu));
+        //  helper.setText(R.id.tv_oneplusn_menu,item.getItem().getSkuName());
 
-
-        helper.getView(R.id.ll_hot_item).setOnClickListener(new View.OnClickListener() {
+        helper.getView(R.id.ll_oneplusn_item).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mOnItemClickListener.onItemClick(view,position);
+                mOnItemClickListener.onItemClick(view, position);
             }
         });
 
-
     }
-
-
 
 
 }

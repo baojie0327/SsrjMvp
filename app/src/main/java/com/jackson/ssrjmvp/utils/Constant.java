@@ -30,6 +30,12 @@ public class Constant {
         int typeFix = 7;           //固定布局
         int typeScrollFix = 8;    //可选固定
         int typeFloat = 9;         //Float布局
+        int typeColumn = 10;         //栏格布局
+        int typeOnePlusN = 11;         //栏格布局
+        int typeSticky = 12;         //吸边布局
+        int typeStaggered = 13;         //瀑布流布局
+
+
     }
 
 }

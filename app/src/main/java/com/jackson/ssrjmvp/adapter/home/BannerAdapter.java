@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * banner的适配器
+ * banner的适配器,栏布局（SingleLayoutHelper）
  *
  * @author Jackson
  * @version 1.0.0

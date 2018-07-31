@@ -17,13 +17,13 @@ import com.jackson.ssrjmvp.utils.GlideUtils;
 import java.util.List;
 
 /**
- * class description here
+ * 栏格布局,（ColumnLayoutHelper）
  *
  * @author Jackson
  * @version 1.0.0
  *          since 2018 07 23
  */
-public class CommendAdapter extends BaseDelegateAdapter<HomeBean.DataBean.ItemsBean, BaseViewHolder> {
+public class ColumnAdapter extends BaseDelegateAdapter<HomeBean.DataBean.ItemsBean, BaseViewHolder> {
 
 
     /**
@@ -36,45 +36,27 @@ public class CommendAdapter extends BaseDelegateAdapter<HomeBean.DataBean.ItemsB
      * @param count
      * @param viewTypeItem
      */
-    public CommendAdapter(Context context, List<HomeBean.DataBean.ItemsBean> list, LayoutHelper layoutHelper, int lauoutId, int count, int viewTypeItem) {
+    public ColumnAdapter(Context context, List<HomeBean.DataBean.ItemsBean> list, LayoutHelper layoutHelper, int lauoutId, int count, int viewTypeItem) {
         super(context, list, layoutHelper, lauoutId, count, viewTypeItem);
     }
+
 
     @Override
     protected void convert(final BaseViewHolder helper, HomeBean.DataBean.ItemsBean item, final int position) {
 
-        // 图片
         GlideUtils.loadUrlImage(mContext,
-                "http:" + item.getItem().getImg(),
-                (ImageView) helper.getView(R.id.img_grid_menu));
-        // 加载文字
-        helper.setText(R.id.tv_grid_menu, item.getName());
+                "http:" + item.getItem().getMainImg(),
+                (ImageView) helper.getView(R.id.img_column_menu));
+        helper.setText(R.id.tv_column_menu,item.getItem().getSkuName());
 
-        helper.getView(R.id.ll_grid_menu).setOnClickListener(new View.OnClickListener() {
+        helper.getView(R.id.ll_column_item).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mOnItemClickListener.onItemClick(view,position);
             }
         });
 
-        helper.getView(R.id.img_grid_menu).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mOnItemChildClickListener.onItemChildClick(view,position);
-            }
-        });
-
-        helper.getView(R.id.tv_grid_menu).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mOnItemChildClickListener.onItemChildClick(view,position);
-            }
-        });
-
-
     }
-
-
 
 
 }

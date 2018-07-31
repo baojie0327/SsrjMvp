@@ -17,7 +17,7 @@ import com.jackson.ssrjmvp.utils.GlideUtils;
 import java.util.List;
 
 /**
- * 超值精选
+ * 超值精选,栏布局（LinearLayoutHelper）
  *
  * @author Jackson
  * @version 1.0.0

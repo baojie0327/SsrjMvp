@@ -14,7 +14,7 @@ import com.jackson.ssrjmvp.adapter.BaseDelegateAdapter;
 import java.util.List;
 
 /**
- * 固定布局
+ * 固定布局,FixLayoutHelper
  *
  * @author Jackson
  * @version 1.0.0

@@ -17,7 +17,7 @@ import com.jackson.ssrjmvp.utils.GlideUtils;
 import java.util.List;
 
 /**
- * class description here
+ * GridLayoutHelper
  *
  * @author Jackson
  * @version 1.0.0
