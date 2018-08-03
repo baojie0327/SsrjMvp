@@ -291,7 +291,7 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
         GridLayoutHelper gridLayoutHelper = new GridLayoutHelper(5);
         //  gridLayoutHelper.setMarginTop(300);  //设置距离顶部的距离
         //  gridLayoutHelper.setItemCount(30);  // 设置布局里Item个数
-        gridLayoutHelper.setPadding(0, 16, 0, 0); // 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
+        gridLayoutHelper.setPadding(0, 0, 0, 0); // 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
         // gridLayoutHelper.setMargin(20,10,20,10);   //设置LayoutHelper边缘相对父控件（即RecyclerView）的距离
         //  gridLayoutHelper.setAspectRatio(6); // 设置设置布局内每行布局的宽与高的比
         //  gridLayoutHelper.setWeights(new float[]{40, 10, 20,20,10});//设置每行中 每个网格宽度 占 每行总宽度 的比例
