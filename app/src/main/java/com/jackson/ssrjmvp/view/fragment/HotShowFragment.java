@@ -104,6 +104,12 @@ public class HotShowFragment extends Fragment implements IView.IHotShowView {
     private void initView() {
         mLlBack.setVisibility(View.INVISIBLE);
         mTvHeadTitle.setText("热映");
+        mTvHeadTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         // 设置RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
