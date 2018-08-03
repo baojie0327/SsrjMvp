@@ -2,6 +2,7 @@ package com.jackson.ssrjmvp.view.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -26,7 +27,6 @@ import com.alibaba.android.vlayout.layout.StaggeredGridLayoutHelper;
 import com.alibaba.android.vlayout.layout.StickyLayoutHelper;
 import com.jackson.ssrjmvp.R;
 import com.jackson.ssrjmvp.adapter.BaseDelegateAdapter;
-import com.jackson.ssrjmvp.adapter.BaseDelegateAdapter1;
 import com.jackson.ssrjmvp.adapter.home.BannerAdapter;
 import com.jackson.ssrjmvp.adapter.home.CareChoiceAdapter;
 import com.jackson.ssrjmvp.adapter.home.ColumnAdapter;
@@ -48,6 +48,11 @@ import com.jackson.ssrjmvp.utils.CommonMethod;
 import com.jackson.ssrjmvp.utils.Constant;
 import com.jackson.ssrjmvp.utils.LogUtil;
 import com.jackson.ssrjmvp.view.IView;
+import com.scwang.smartrefresh.header.MaterialHeader;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -69,11 +74,11 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
     LinearLayout mLlBack;
     @BindView(R.id.tv_head_title)
     TextView mTvHeadTitle;
+    @BindView(R.id.refreshLayout)
+    SmartRefreshLayout mRefreshLayout;
     @BindView(recyclerView)
     RecyclerView mRecyclerView;
     Unbinder unbinder;
-
-    Unbinder unbinder1;
     private View view;
 
 
@@ -94,10 +99,9 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
     private StickyAdapter mStickyAdapter;  // Sticky布局
     private StaggeredAdapter mStaggeredAdapter; // 瀑布流布局
 
-    private List<HomeBean.DataBean> mDataList;  // 数据源
+    private List<HomeBean.DataBean> dataList;  // 数据源，头布局
     private List<DelegateAdapter.Adapter> mAdapters;
     private DelegateAdapter delegateAdapter;
-    private BaseDelegateAdapter1 mBaseAdApter;
 
 
     @Nullable
@@ -109,11 +113,11 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
             inject();
             initView();
             initData();
-            mHomePresenter.getData();
+            mHomePresenter.getData(0);
+            refreshListen();  // 刷新，加载监听
 
         }
 
-        unbinder1 = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -137,23 +141,25 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
         // 设置RecyclerView
        /* LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);*/
-        mDataList = new ArrayList<>();
+        dataList = new ArrayList<>();
         mAdapters = new LinkedList<>();
 
         // 刷新设置
-       /* mRefreshLayout.autoRefresh();  // 开启自动刷新
-        mRefreshLayout.setEnableAutoLoadMore(true); // 开启自动加载功能
+        mRefreshLayout.autoRefresh();  // 开启自动刷新
+        //  mRefreshLayout.setEnableAutoLoadMore(true); // 开启自动加载功能
         // mRefreshLayout.setEnableAutoLoadMore(false);//使上拉加载具有弹性效果
         //  mRefreshLayout.setEnableOverScrollDrag(false);//禁止越界拖动（1.0.4以上版本）
         // mRefreshLayout.setEnableOverScrollBounce(false);//关闭越界回弹功能
 
         // 设置官方刷新主题
         mRefreshLayout.setRefreshHeader(new MaterialHeader(getActivity()));
-        mRefreshLayout.setEnableHeaderTranslationContent(false);*/
-
+        mRefreshLayout.setEnableHeaderTranslationContent(false);
     }
 
-
+    /**
+     * 初始化数据
+     * 设置RecyclerView
+     */
     private void initData() {
         //初始化
         //创建VirtualLayoutManager对象
@@ -161,7 +167,7 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
         layoutManager.setRecycleOffset(5000);
         // 将VirtualLayoutManager绑定到recyclerView
         mRecyclerView.setLayoutManager(layoutManager);
-
+        // 设置分割线
        /* RecyclerView.ItemDecoration itemDecoration = new RecyclerView.ItemDecoration() {
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 int position = ((VirtualLayoutManager.LayoutParams) view.getLayoutParams()).getViewPosition();
@@ -179,34 +185,86 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
         mRecyclerView.setAdapter(delegateAdapter);
     }
 
+
     /**
-     * 网络请求成功后，获取数据
-     *
-     * @param mDatatList
+     * 设置数据
+     * @param
      */
     @Override
-    public void setData(List<HomeBean.DataBean> mDatatList) {
-        LogUtil.d("size==" + mDatatList.size());
-        this.mDataList = mDatatList;
-        setBannerData(mDatatList.get(0).getItems());
-        setGridMenu(mDatatList.get(1).getItems());
+    public void setData(List<HomeBean.DataBean> mDataList) {
+        LogUtil.d("size==" + mDataList.size());
+        if (dataList.size() > 0) {
+            dataList.clear();
+        }
+        this.dataList = mDataList;
+        setBannerData(dataList.get(0).getItems());
+        setGridMenu(dataList.get(1).getItems());
         setScrollFix();
-        setMarquee(mDatatList.get(2).getItems());
-        setHotItem(mDatatList.get(3).getItems());  // grid
-        setPrepare(mDatatList.get(4).getItems());  // 横向滑动
+        setMarquee(dataList.get(2).getItems());
+        setHotItem(dataList.get(3).getItems());  // grid
+        setPrepare(dataList.get(4).getItems());  // 横向滑动
         setSticky();                                // 设置Sticky
-        setCareChoice(mDatatList.get(5).getItems());  // linear
+        setCareChoice(dataList.get(5).getItems());  // linear
         setFixData();
         setFloat();
-        setColumn(mDatatList.get(4).getItems());   // 栅格
-        setOnePlusN(mDatatList.get(6).getItems());  // 1拖N
-        setStaggered(mDatatList.get(7).getItems()); // 瀑布流
+        setColumn(dataList.get(4).getItems());   // 栅格
+        setOnePlusN(dataList.get(6).getItems());  // 1拖N
+        setStaggered(dataList.get(7).getItems()); // 瀑布流
         setAllData();
     }
 
     /**
+     * 刷新加载监听
+     */
+    private void refreshListen() {
+        // refresh
+        mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                mRefreshLayout.getLayout().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mHomePresenter.getData(1);
+                    }
+                }, 2000);
+            }
+        });
+
+        // loadMore
+        mRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                mRefreshLayout.getLayout().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mRefreshLayout.finishLoadMoreWithNoMoreData();  //将不会再次触发加载更多事件
+                        mRefreshLayout.finishLoadMore();
+
+                    }
+                }, 2000);
+            }
+        });
+
+    }
+
+    /**
+     * 刷新
+     * @param mDataList
+     */
+    @Override
+    public void onRefresh(List<HomeBean.DataBean> mDataList) {
+        if (mAdapters.size() > 0) {
+            mAdapters.clear();
+        }
+        setData(mDataList);
+        mRecyclerView.getAdapter().notifyDataSetChanged();
+        mRefreshLayout.finishRefresh();
+        mRefreshLayout.setNoMoreData(false);
+    }
+
+
+    /**
      * 设置轮播
-     *
      * @param items
      */
     private void setBannerData(List<HomeBean.DataBean.ItemsBean> items) {
@@ -367,20 +425,16 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
     }
 
     /**
-     * 设置Sticky布局
+     * 设置Sticky布局，设置吸边布局
      */
-    private void setSticky(){
-
-        /**
-         设置吸边布局
-         */
+    private void setSticky() {
         StickyLayoutHelper stickyLayoutHelper = new StickyLayoutHelper();
         // 公共属性
         stickyLayoutHelper.setItemCount(1);// 设置布局里Item个数
-      //  stickyLayoutHelper.setPadding(20, 20, 20, 20);// 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
-    //    stickyLayoutHelper.setMargin(20, 20, 20, 20);// 设置LayoutHelper边缘相对父控件（即RecyclerView）的距离
-     //   stickyLayoutHelper.setBgColor(Color.GRAY);// 设置背景颜色
-       // stickyLayoutHelper.setAspectRatio(2);// 设置设置布局内每行布局的宽与高的比
+        //  stickyLayoutHelper.setPadding(20, 20, 20, 20);// 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
+        //    stickyLayoutHelper.setMargin(20, 20, 20, 20);// 设置LayoutHelper边缘相对父控件（即RecyclerView）的距离
+        //   stickyLayoutHelper.setBgColor(Color.GRAY);// 设置背景颜色
+        // stickyLayoutHelper.setAspectRatio(2);// 设置设置布局内每行布局的宽与高的比
 
         // 特有属性
         stickyLayoutHelper.setStickyStart(true);
@@ -388,8 +442,8 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
         // false = 组件吸在底部
 
         stickyLayoutHelper.setOffset(100);// 设置吸边位置的偏移量
-        List<String> list=new ArrayList<>();
-        mStickyAdapter=new StickyAdapter(getActivity(),list,stickyLayoutHelper,R.layout.item_home_sticky_layout,1,Constant.viewType.typeSticky);
+        List<String> list = new ArrayList<>();
+        mStickyAdapter = new StickyAdapter(getActivity(), list, stickyLayoutHelper, R.layout.item_home_sticky_layout, 1, Constant.viewType.typeSticky);
 
     }
 
@@ -439,7 +493,6 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
         fixLayoutHelper.setMargin(20, 20, 20, 20);// 设置LayoutHelper边缘相对父控件（即RecyclerView）的距离
         fixLayoutHelper.setBgColor(Color.GRAY);// 设置背景颜色
         //  fixLayoutHelper.setAspectRatio(6);// 设置设置布局内每行布局的宽与高的比
-
         // fixLayoutHelper特有属性
         fixLayoutHelper.setAlignType(FixLayoutHelper.TOP_LEFT);// 设置吸边时的基准位置(alignType)
         fixLayoutHelper.setX(10);// 设置基准位置的横向偏移量X
@@ -461,7 +514,6 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
         ScrollFixLayoutHelper scrollFixLayoutHelper = new ScrollFixLayoutHelper(ScrollFixLayoutHelper.TOP_RIGHT, 80, 60);
         // 公共属性
         scrollFixLayoutHelper.setItemCount(1);// 设置布局里Item个数
-
         scrollFixLayoutHelper.setPadding(20, 20, 20, 20);// 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
         scrollFixLayoutHelper.setMargin(20, 20, 20, 20);// 设置LayoutHelper边缘相对父控件（即RecyclerView）的距离
         scrollFixLayoutHelper.setBgColor(Color.GRAY);// 设置背景颜色
@@ -525,65 +577,60 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
         mColumnAdapter.setOnItemClickListener(new BaseDelegateAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                CommonMethod.showToast(getActivity(),"click--"+position,false);
+                CommonMethod.showToast(getActivity(), "click--" + position, false);
             }
         });
     }
 
     /**
      * 设置1拖N
+     *
      * @param items
      */
-    private void setOnePlusN(List<HomeBean.DataBean.ItemsBean> items){
-        OnePlusNLayoutHelper onePlusNLayoutHelper = new OnePlusNLayoutHelper(5);
+    private void setOnePlusN(List<HomeBean.DataBean.ItemsBean> items) {
+        OnePlusNLayoutHelper onePlusNLayoutHelper = new OnePlusNLayoutHelper(3);
         // 在构造函数里传入显示的Item数
         // 最多是1拖4,即5个
-
         // 公共属性
         onePlusNLayoutHelper.setItemCount(3);// 设置布局里Item个数
-      //  onePlusNLayoutHelper.setPadding(20, 20, 20, 20);// 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
-      //  onePlusNLayoutHelper.setMargin(20, 20, 20, 20);// 设置LayoutHelper边缘相对父控件（即RecyclerView）的距离
-      //  onePlusNLayoutHelper.setBgColor(Color.GRAY);// 设置背景颜色
-       // onePlusNLayoutHelper.setColWeights(new float[]{40f, 50f, 50f});
+        //  onePlusNLayoutHelper.setPadding(20, 20, 20, 20);// 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
+        //  onePlusNLayoutHelper.setMargin(20, 20, 20, 20);// 设置LayoutHelper边缘相对父控件（即RecyclerView）的距离
+        //  onePlusNLayoutHelper.setBgColor(Color.GRAY);// 设置背景颜色
+        // onePlusNLayoutHelper.setColWeights(new float[]{40f, 50f, 50f});
         onePlusNLayoutHelper.setAspectRatio(2);// 设置设置布局内每行布局的宽与高的比
 
         mOnePlusNAdapter = new OnePlusNAdapter(getActivity(), items, onePlusNLayoutHelper, R.layout.item_home_oneplusn_layout, 3, Constant.viewType.typeOnePlusN);
         mOnePlusNAdapter.setOnItemClickListener(new BaseDelegateAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                CommonMethod.showToast(getActivity(),"click--"+position,false);
+                CommonMethod.showToast(getActivity(), "click--" + position, false);
             }
         });
     }
 
     /**
      * 设置瀑布流布局
+     *
      * @param items
      */
-    private void setStaggered(List<HomeBean.DataBean.ItemsBean> items){
-        /**
-         设置瀑布流布局
-         */
-
+    private void setStaggered(List<HomeBean.DataBean.ItemsBean> items) {
         StaggeredGridLayoutHelper staggeredGridLayoutHelper = new StaggeredGridLayoutHelper(2);
-        // 创建对象
-
         // 公有属性
         staggeredGridLayoutHelper.setItemCount(10);// 设置布局里Item个数
-      //  staggeredGridLayoutHelper.setPadding(20, 20, 20, 20);// 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
-    //    staggeredGridLayoutHelper.setMargin(20, 20, 20, 20);// 设置LayoutHelper边缘相对父控件（即RecyclerView）的距离
-     //   staggeredGridLayoutHelper.setBgColor(Color.GRAY);// 设置背景颜色
-     //   staggeredGridLayoutHelper.setAspectRatio(1.0f);// 设置设置布局内每行布局的宽与高的比
+        //  staggeredGridLayoutHelper.setPadding(20, 20, 20, 20);// 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
+        //    staggeredGridLayoutHelper.setMargin(20, 20, 20, 20);// 设置LayoutHelper边缘相对父控件（即RecyclerView）的距离
+        //   staggeredGridLayoutHelper.setBgColor(Color.GRAY);// 设置背景颜色
+        //   staggeredGridLayoutHelper.setAspectRatio(1.0f);// 设置设置布局内每行布局的宽与高的比
 
         // 特有属性
         staggeredGridLayoutHelper.setLane(2);// 设置控制瀑布流每行的Item数
-      //  staggeredGridLayoutHelper.setHGap(10);// 设置子元素之间的水平间距
-      //  staggeredGridLayoutHelper.setVGap(15);// 设置子元素之间的垂直间距
-        mStaggeredAdapter=new StaggeredAdapter(getActivity(),items,staggeredGridLayoutHelper,R.layout.item_home_staggered_layout,10,Constant.viewType.typeStaggered);
+        //  staggeredGridLayoutHelper.setHGap(10);// 设置子元素之间的水平间距
+        //  staggeredGridLayoutHelper.setVGap(15);// 设置子元素之间的垂直间距
+        mStaggeredAdapter = new StaggeredAdapter(getActivity(), items, staggeredGridLayoutHelper, R.layout.item_home_staggered_layout, items.size(), Constant.viewType.typeStaggered);
         mStaggeredAdapter.setOnItemClickListener(new BaseDelegateAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                CommonMethod.showToast(getActivity(),"click--"+position,false);
+                CommonMethod.showToast(getActivity(), "click--" + position, false);
             }
         });
     }

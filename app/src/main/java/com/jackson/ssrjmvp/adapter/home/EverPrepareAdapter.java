@@ -14,7 +14,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jackson.ssrjmvp.R;
 import com.jackson.ssrjmvp.adapter.BaseDelegateAdapter;
 import com.jackson.ssrjmvp.bean.HomeBean;
-import com.jackson.ssrjmvp.utils.LogUtil;
 
 import java.util.List;
 
@@ -58,7 +57,7 @@ public class EverPrepareAdapter extends BaseDelegateAdapter<HomeBean.DataBean.It
         itemPrepareAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                LogUtil.d("onitem-"+position);
+             //   LogUtil.d("onitem-"+position);
                 mOnItemClickListener.onItemClick(view,position);
             }
         });

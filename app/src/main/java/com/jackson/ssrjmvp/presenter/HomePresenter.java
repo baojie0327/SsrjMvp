@@ -53,7 +53,7 @@ public class HomePresenter {
      * @param
      * @param
      */
-    public void getData() {
+    public void getData(final int type) {
         // 参数
         Map<String, String> paraMap = new HashMap<>();
         paraMap.put("phoneNumber", "18310083556");
@@ -69,7 +69,17 @@ public class HomePresenter {
             public void onSuccess(HomeBean response) {
                 // 通知View层进行数据更新
                 if (response.getCode().equals("1")) {
-                    mIHomeView.setData(response.getData());
+                    switch (type){
+                        case 0:
+                            mIHomeView.setData(response.getData());
+                            break;
+                        case 1:
+                            mIHomeView.onRefresh(response.getData());
+                            break;
+                        case 2:
+
+                            break;
+                    }
                 }
             }
 
@@ -85,6 +95,7 @@ public class HomePresenter {
         });
 
     }
+
 
 }
 

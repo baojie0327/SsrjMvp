@@ -44,7 +44,8 @@ public class IView {
      * View--Home
      */
     public interface IHomeView {
-        void setData(List<HomeBean.DataBean> mDatatList);  // 网络请求成功后获取数据
+        void setData(List<HomeBean.DataBean> mDataList);  // 设置主体数据
+        void onRefresh(List<HomeBean.DataBean> mDataList);  // refresh
         void closeDispose(Disposable disposable);    //  关闭流
     }
 

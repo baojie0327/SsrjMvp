@@ -15,7 +15,6 @@ import com.jackson.ssrjmvp.R;
 import com.jackson.ssrjmvp.adapter.BaseDelegateAdapter;
 import com.jackson.ssrjmvp.bean.HomeBean;
 import com.jackson.ssrjmvp.utils.GlideUtils;
-import com.jackson.ssrjmvp.utils.LogUtil;
 
 import java.util.List;
 
@@ -51,12 +50,12 @@ public class StaggeredAdapter extends BaseDelegateAdapter<HomeBean.DataBean.Item
         helper.getView(R.id.ll_staggered_item).post(new Runnable() {
             @Override
             public void run() {
-                LogUtil.d(helper.getView(R.id.ll_staggered_item).getWidth()+"  "+helper.getView(R.id.ll_staggered_item).getHeight());
+           //     LogUtil.d(helper.getView(R.id.ll_staggered_item).getWidth()+"  "+helper.getView(R.id.ll_staggered_item).getHeight());
             }
         });
 
         VirtualLayoutManager.LayoutParams layoutParams = new VirtualLayoutManager.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 750);
-        LogUtil.d("width==" + layoutParams.width + " height==" + layoutParams.height);
+     //   LogUtil.d("width==" + layoutParams.width + " height==" + layoutParams.height);
         layoutParams.height = 750 + position % 3 * 30;
         /*if (position % 2 == 0) {
             layoutParams.height = 750 + position % 3 * 30;
