@@ -14,6 +14,10 @@
     <color name="red">#FF0000</color>
     <color name="orange">#FF6100</color>
 
+    <color name="opacity_7_5_black">#bf000000</color>
+    <color name="opacity_9_blue">#d215bdf4</color>
+
+
     <color name="light_gray">#b3b3b3</color>
     <color name="text_black_color">#323232</color>
     <color name="general_gray">#f7f7f7</color>

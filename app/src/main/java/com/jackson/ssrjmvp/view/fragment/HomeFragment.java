@@ -1,5 +1,6 @@
 package com.jackson.ssrjmvp.view.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -48,6 +49,8 @@ import com.jackson.ssrjmvp.utils.CommonMethod;
 import com.jackson.ssrjmvp.utils.Constant;
 import com.jackson.ssrjmvp.utils.LogUtil;
 import com.jackson.ssrjmvp.view.IView;
+import com.jackson.ssrjmvp.view.activity.FlexBoxLayoutActivity;
+import com.jackson.ssrjmvp.view.activity.SuperTextViewActivity;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -318,11 +321,19 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
             @Override
             public void onItemClick(View view, int position) {
                 Toast.makeText(getActivity(), "click--" + position, Toast.LENGTH_SHORT).show();
+                switch (position){
+                    case 0:  // SuperTextView使用
+                        startActivity(new Intent(getActivity(), SuperTextViewActivity.class));
+                        break;
+                    case 1: // flexbox-layout
+                        startActivity(new Intent(getActivity(), FlexBoxLayoutActivity.class));
+                        break;
+                }
             }
 
         });
 
-        mGridMenuAdapter.setOnItemChildClickListener(new BaseDelegateAdapter.OnItemChildClickListener() {
+      /*  mGridMenuAdapter.setOnItemChildClickListener(new BaseDelegateAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(View view, int position) {
                 switch (view.getId()) {
@@ -334,7 +345,7 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
                         break;
                 }
             }
-        });
+        });*/
     }
 
     /**

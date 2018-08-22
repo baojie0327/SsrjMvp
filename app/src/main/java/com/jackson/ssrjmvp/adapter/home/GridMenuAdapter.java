@@ -57,6 +57,7 @@ public class GridMenuAdapter extends BaseDelegateAdapter<HomeBean.DataBean.Items
             }
         });
 
+/*
         helper.getView(R.id.img_grid_menu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,6 +71,7 @@ public class GridMenuAdapter extends BaseDelegateAdapter<HomeBean.DataBean.Items
                 mOnItemChildClickListener.onItemChildClick(view,position);
             }
         });
+zhangyife*/
 
 
     }
