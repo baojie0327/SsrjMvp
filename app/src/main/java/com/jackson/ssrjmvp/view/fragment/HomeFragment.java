@@ -49,8 +49,8 @@ import com.jackson.ssrjmvp.utils.CommonMethod;
 import com.jackson.ssrjmvp.utils.Constant;
 import com.jackson.ssrjmvp.utils.LogUtil;
 import com.jackson.ssrjmvp.view.IView;
-import com.jackson.ssrjmvp.view.activity.FlexBoxLayoutActivity;
-import com.jackson.ssrjmvp.view.activity.SuperTextViewActivity;
+import com.jackson.ssrjmvp.view.activity.flexbox.FlexBoxLayoutActivity;
+import com.jackson.ssrjmvp.view.activity.supertext.SuperTextViewActivity;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -326,7 +326,7 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
                         startActivity(new Intent(getActivity(), SuperTextViewActivity.class));
                         break;
                     case 1: // flexbox-layout
-                        startActivity(new Intent(getActivity(), FlexBoxLayoutActivity.class));
+                      startActivity(new Intent(getActivity(), FlexBoxLayoutActivity.class));
                         break;
                 }
             }

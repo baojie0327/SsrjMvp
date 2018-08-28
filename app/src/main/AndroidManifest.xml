@@ -54,9 +54,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/ColorTranslucentTheme">
         </activity>
-        <activity android:name=".view.activity.SuperTextViewActivity">
+        <activity android:name=".view.activity.supertext.SuperTextViewActivity">
         </activity>
-        <activity android:name=".view.activity.FlexBoxLayoutActivity">
+        <activity android:name=".view.activity.flexbox.FlexBoxLayoutActivity">
+        </activity>
+        <activity android:name=".view.activity.flexbox.FlexBoxFlowActivity">
+        </activity>
+        <activity android:name=".view.activity.flexbox.FlexWaterFallActivity">
         </activity>
     </application>
 

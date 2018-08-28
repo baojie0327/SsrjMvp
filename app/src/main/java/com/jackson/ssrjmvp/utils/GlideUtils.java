@@ -24,7 +24,28 @@ public class GlideUtils {
         RequestOptions options = new RequestOptions()
                 .placeholder(R.drawable.default_square_four)
                 //  .transform(new GlideCircleTransform(mContext))
+                .dontTransform()
+                .skipMemoryCache(true)
+                .dontAnimate()
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
+
+        // 加载图片
+        Glide.with(context)
+                .load(url)
+                .apply(options)
+                .into(imageView);
+    }
+
+    public static void loadUrlImage(Context context, int url, ImageView imageView){
+        // options
+        RequestOptions options = new RequestOptions()
+             //   .placeholder(R.drawable.default_square_four)
+                //  .transform(new GlideCircleTransform(mContext))
+               .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
+
+      /*  RequestBuilder<Bitmap> requestBuilder = Glide.with(context).as;
+        requestBuilder.apply(options);*/
 
         // 加载图片
         Glide.with(context)
