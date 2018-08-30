@@ -49,6 +49,7 @@ import com.jackson.ssrjmvp.utils.CommonMethod;
 import com.jackson.ssrjmvp.utils.Constant;
 import com.jackson.ssrjmvp.utils.LogUtil;
 import com.jackson.ssrjmvp.view.IView;
+import com.jackson.ssrjmvp.view.activity.NestedScrollActivity;
 import com.jackson.ssrjmvp.view.activity.flexbox.FlexBoxLayoutActivity;
 import com.jackson.ssrjmvp.view.activity.supertext.SuperTextViewActivity;
 import com.scwang.smartrefresh.header.MaterialHeader;
@@ -327,6 +328,9 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
                         break;
                     case 1: // flexbox-layout
                       startActivity(new Intent(getActivity(), FlexBoxLayoutActivity.class));
+                        break;
+                    case 2:  // nestedscrollview
+                        startActivity(new Intent(getActivity(), NestedScrollActivity.class));
                         break;
                 }
             }
