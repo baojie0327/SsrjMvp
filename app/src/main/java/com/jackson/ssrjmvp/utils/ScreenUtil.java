@@ -1,4 +1,4 @@
-package com.siberiadante.multiscrolldemo.util;
+package com.jackson.ssrjmvp.utils;
 
 import android.content.Context;
 import android.util.DisplayMetrics;

@@ -1,4 +1,4 @@
-package com.siberiadante.multiscrolldemo.view;
+package com.jackson.ssrjmvp.customview;
 
 import android.content.Context;
 

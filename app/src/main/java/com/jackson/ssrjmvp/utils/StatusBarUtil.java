@@ -1,4 +1,4 @@
-package com.jaeger.library;
+package com.jackson.ssrjmvp.utils;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -15,6 +15,9 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+
+import com.jackson.ssrjmvp.R;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 

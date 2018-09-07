@@ -1,4 +1,4 @@
-package com.siberiadante.multiscrolldemo.util;
+package com.jackson.ssrjmvp.utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
  */
 
 @SuppressWarnings("unused")
-public class StatusBarUtil {
+public class StatusBarUtils {
 
     public static int DEFAULT_COLOR = 0;
     public static float DEFAULT_ALPHA = 0;//Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? 0.2f : 0.3f;

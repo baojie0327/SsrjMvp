@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jackson.ssrjmvp.view.activity.ImmersiveActivity">
+    android:orientation="vertical"
+    tools:context="com.jackson.ssrjmvp.view.activity.immersive.ImmersiveActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <include layout="@layout/head_layout"></include>
+
+    <Button
+        android:id="@+id/all_image"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="全景图片"/>
+
+    <Button
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="图片"/>
+
+</LinearLayout>

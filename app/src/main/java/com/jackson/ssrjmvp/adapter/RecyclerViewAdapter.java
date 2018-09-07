@@ -1,4 +1,4 @@
-package com.example.ahuang.myframe.adapter; /**
+package com.jackson.ssrjmvp.adapter; /**
  * RecyclerViewAdapter  2017-08-02
  * Copyright (c) 2017 SSRJ Co.Ltd. All right reserved.
  */
@@ -9,7 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.ahuang.myframe.R;
+import com.jackson.ssrjmvp.R;
+
 
 /**
  * class description here

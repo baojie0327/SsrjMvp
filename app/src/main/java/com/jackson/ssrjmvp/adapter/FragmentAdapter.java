@@ -1,4 +1,4 @@
-package com.example.ahuang.myframe.adapter.wrapper.viewpager; /**
+package com.jackson.ssrjmvp.adapter; /**
  * FragmentAdapter  2017-07-28
  * Copyright (c) 2017 SSRJ Co.Ltd. All right reserved.
  */
@@ -19,12 +19,12 @@ import java.util.List;
 public class FragmentAdapter extends FragmentStatePagerAdapter {
 
     private List<Fragment> mFragments;
-    private List<String> mTitles;
 
-    public FragmentAdapter(FragmentManager fm, List<Fragment> fragments, List<String> titles) {
+
+    public FragmentAdapter(FragmentManager fm, List<Fragment> fragments) {
         super(fm);
         this.mFragments = fragments;
-        this.mTitles = titles;
+
     }
 
     @Override
@@ -32,11 +32,7 @@ public class FragmentAdapter extends FragmentStatePagerAdapter {
         return mFragments.get(position);
     }
 
-    //此方法用来显示tab上的名字
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return mTitles.get(position);
-    }
+
 
     @Override
     public int getCount() {

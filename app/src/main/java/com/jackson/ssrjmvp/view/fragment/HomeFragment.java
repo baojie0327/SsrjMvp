@@ -51,6 +51,7 @@ import com.jackson.ssrjmvp.utils.LogUtil;
 import com.jackson.ssrjmvp.view.IView;
 import com.jackson.ssrjmvp.view.activity.NestedScrollActivity;
 import com.jackson.ssrjmvp.view.activity.flexbox.FlexBoxLayoutActivity;
+import com.jackson.ssrjmvp.view.activity.immersive.ImmersiveActivity;
 import com.jackson.ssrjmvp.view.activity.supertext.SuperTextViewActivity;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -331,6 +332,9 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
                         break;
                     case 2:  // nestedscrollview
                         startActivity(new Intent(getActivity(), NestedScrollActivity.class));
+                        break;
+                    case 3: // 沉浸式
+                        startActivity(new Intent(getActivity(), ImmersiveActivity.class));
                         break;
                 }
             }

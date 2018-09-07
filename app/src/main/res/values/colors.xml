@@ -21,4 +21,14 @@
     <color name="light_gray">#b3b3b3</color>
     <color name="text_black_color">#323232</color>
     <color name="general_gray">#f7f7f7</color>
+
+    <color name="mainBlack">#242828</color>
+    <color name="mainBlack5B">#5b5b5b</color>
+    <color name="mainRed">#ff3955</color>
+    <color name="mainBlue">#4277fb</color>
+    <color name="mainWhite">#ffffff</color>
+    <color name="mainGrayF8">#f8f8f8</color>
+    <color name="mainGrayF0">#f0f0f0</color>
+    <color name="mainGrayC6">#c6c6c6</color>
+    <color name="mainGray88">#888888</color>
 </resources>

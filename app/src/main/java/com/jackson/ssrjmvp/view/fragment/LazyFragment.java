@@ -1,4 +1,4 @@
-package com.xmagicj.android.lazyfragment;
+package com.jackson.ssrjmvp.view.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -35,7 +35,7 @@ import android.view.ViewGroup;
  * on 2015/11/2.
  * </pre>
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class LazyFragment extends Fragment {
     /**
      * Fragment title
      */
