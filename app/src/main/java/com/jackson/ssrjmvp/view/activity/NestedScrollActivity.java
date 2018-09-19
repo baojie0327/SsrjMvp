@@ -23,8 +23,10 @@ import com.jackson.ssrjmvp.adapter.FragmentAdapter;
 import com.jackson.ssrjmvp.customview.ColorFlipPagerTitleView;
 import com.jackson.ssrjmvp.customview.JudgeNestedScrollView;
 import com.jackson.ssrjmvp.utils.ScreenUtil;
-import com.jackson.ssrjmvp.utils.StatusBarUtil;
-import com.jackson.ssrjmvp.view.fragment.TabLayoutFargment;
+import com.jackson.ssrjmvp.utils.StatusBarUtils;
+import com.jackson.ssrjmvp.view.fragment.nesttab.TabLayoutFargment;
+import com.jackson.ssrjmvp.view.fragment.nesttab.TabLayoutFargment1;
+import com.jackson.ssrjmvp.view.fragment.nesttab.TabLayoutFargment2;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
@@ -131,6 +133,7 @@ public class NestedScrollActivity extends AppCompatActivity {
 
     private String[] mTitles = new String[]{"动态", "文章", "问答"};
     private List<String> mDataList = Arrays.asList(mTitles);
+    FragmentAdapter mFragmentAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,9 +141,12 @@ public class NestedScrollActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nested_scroll);
         ButterKnife.bind(this);
 
-        StatusBarUtil.setTranslucentForCoordinatorLayout(this, 0);
+        //    StatusBarUtil.setTranslucentForCoordinatorLayout(this, 0);
+        StatusBarUtils.immersive(this);
+        StatusBarUtils.setPaddingSmart(this, mToolbar);
 
         initView();
+    //    refreshListen();
 
 
         //  initViewPager();
@@ -158,8 +164,20 @@ public class NestedScrollActivity extends AppCompatActivity {
             public void onHeaderMoving(RefreshHeader header, boolean isDragging, float percent, int offset, int headerHeight, int maxDragHeight) {
                 mOffset = offset / 2;
                 mIvHeader.setTranslationY(mOffset - mScrollY);
-                mToolbar.setAlpha(1-Math.min(percent,1));
+                mToolbar.setAlpha(1 - Math.min(percent, 1));
             }
+
+           /* @Override
+            public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
+                refreshHead();
+                mFragmentAdapter.mFragments.get(mViewPager.getCurrentItem()).refreshData(refreshLayout,mViewPager.getCurrentItem());
+            }
+
+            @Override
+            public void onLoadMore(@NonNull final RefreshLayout refreshLayout) {
+                refreshLayout.finishLoadMore(2000);
+                mFragmentAdapter.mFragments.get(mViewPager.getCurrentItem()).loadMore(refreshLayout,mViewPager.getCurrentItem());
+            }*/
         });
 
 
@@ -174,16 +192,17 @@ public class NestedScrollActivity extends AppCompatActivity {
             int lastScrollY = 0;
             int h = DensityUtil.dp2px(170);
             int color = ContextCompat.getColor(getApplicationContext(), R.color.mainWhite) & 0x00ffffff;
+
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 int[] location = new int[2];
                 mMagicIndicator.getLocationOnScreen(location);
                 int yPosition = location[1];
 
-                if (yPosition<toolBarPositionY){
+                if (yPosition < toolBarPositionY) {
                     mMagicIndicatorTitle.setVisibility(View.VISIBLE);
                     mScrollView.setNeedScroll(false);
-                }else {
+                } else {
                     mMagicIndicatorTitle.setVisibility(View.GONE);
                     mScrollView.setNeedScroll(true);
                 }
@@ -211,7 +230,7 @@ public class NestedScrollActivity extends AppCompatActivity {
         mButtonBarLayout.setAlpha(0);
         mToolbar.setBackgroundColor(0);
 
-        FragmentAdapter mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), getFragment());
+        mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), getFragment());
         mViewPager.setAdapter(mFragmentAdapter);
         mViewPager.setOffscreenPageLimit(10);
 
@@ -221,19 +240,46 @@ public class NestedScrollActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * 刷新加载监听
+     */
+   /* private void refreshListen() {
+        // refresh
+        mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                refreshHead();
+                mFragmentAdapter.mFragments.get(mViewPager.getCurrentItem()).refreshData(refreshLayout,mViewPager.getCurrentItem());
+            }
+        });
+
+        // loadMore
+        mRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                mFragmentAdapter.mFragments.get(mViewPager.getCurrentItem()).loadMore(refreshLayout,mViewPager.getCurrentItem());
+            }
+        });
+    }*/
+
+    private void refreshHead() {
+        mTvUsername.setText(mTvUsername.getText() + "a");
+    }
+
     private void dealWithViewPager() {
         toolBarPositionY = mToolbar.getHeight();
         ViewGroup.LayoutParams params = mViewPager.getLayoutParams();
         params.height = ScreenUtil.getScreenHeightPx(getApplicationContext()) - toolBarPositionY - mMagicIndicator.getHeight() + 1;
+
         mViewPager.setLayoutParams(params);
     }
 
 
-    private List<Fragment> getFragment(){
+    private List<Fragment> getFragment() {
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new TabLayoutFargment());
-        fragments.add(new TabLayoutFargment());
-        fragments.add(new TabLayoutFargment());
+        fragments.add(TabLayoutFargment.newInstance());
+        fragments.add(TabLayoutFargment1.newInstance());
+        fragments.add(TabLayoutFargment2.newInstance());
         return fragments;
     }
 

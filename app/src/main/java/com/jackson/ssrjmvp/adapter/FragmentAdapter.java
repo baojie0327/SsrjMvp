@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class FragmentAdapter extends FragmentStatePagerAdapter {
 
-    private List<Fragment> mFragments;
+    public List<Fragment> mFragments;
 
 
     public FragmentAdapter(FragmentManager fm, List<Fragment> fragments) {

@@ -3,13 +3,18 @@ package com.jackson.ssrjmvp.adapter; /**
  * Copyright (c) 2017 SSRJ Co.Ltd. All right reserved.
  */
 
-import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.annotation.Nullable;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.jackson.ssrjmvp.R;
+import com.jackson.ssrjmvp.bean.TabBean;
+
+import java.util.List;
 
 
 /**
@@ -18,37 +23,35 @@ import com.jackson.ssrjmvp.R;
  * @version 1.0.0
  * since 2017 08 02
  */
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>{
+public class RecyclerViewAdapter extends BaseQuickAdapter<TabBean,BaseViewHolder> {
 
 
-    private Context mContext;
-
-    public RecyclerViewAdapter(Context mContext) {
-        this.mContext = mContext;
+    public RecyclerViewAdapter() {
+        super( R.layout.item_recycle_layout, null);
     }
+
+    public RecyclerViewAdapter(int layoutResId, @Nullable List<TabBean> data) {
+        super(layoutResId, data);
+    }
+
+
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(mContext).inflate(R.layout.item_recycle_layout,parent,false);
-        MyViewHolder viewHolder = new MyViewHolder(view);
+    protected void convert(BaseViewHolder helper, TabBean item) {
+        RequestOptions options = new RequestOptions()
+                .placeholder(R.drawable.default_square_four)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
+        Glide.with(mContext)
+                .load(item.getUrl())
+                .apply(options)
+                .into((ImageView) helper.getView(R.id.image));
 
+        helper.setText(R.id.text,item.getTerxt());
 
-        return viewHolder;
     }
 
-    @Override
-    public void onBindViewHolder(MyViewHolder viewHolder, int position) {
-        final MyViewHolder holder= (MyViewHolder) viewHolder;
-    }
 
-    @Override
-    public int getItemCount() {
-        return 20;
-    }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
-        public MyViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
+
+
 }
