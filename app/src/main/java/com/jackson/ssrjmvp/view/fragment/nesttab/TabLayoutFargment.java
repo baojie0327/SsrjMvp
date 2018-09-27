@@ -127,6 +127,12 @@ public class TabLayoutFargment extends LazyFragment {
 
     }
 
+    public void refreshData(){
+        dataList.clear();
+        getData();
+        mRecyclerViewAdapter.setNewData(dataList);
+    }
+
 
     @Override
     protected void setDefaultFragmentTitle(String title) {

@@ -2,6 +2,7 @@ package com.jackson.ssrjmvp.view.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -29,6 +30,8 @@ import com.jackson.ssrjmvp.view.fragment.nesttab.TabLayoutFargment1;
 import com.jackson.ssrjmvp.view.fragment.nesttab.TabLayoutFargment2;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
 import com.scwang.smartrefresh.layout.util.DensityUtil;
 
@@ -146,7 +149,7 @@ public class NestedScrollActivity extends AppCompatActivity {
         StatusBarUtils.setPaddingSmart(this, mToolbar);
 
         initView();
-    //    refreshListen();
+        refreshListen();
 
 
         //  initViewPager();
@@ -243,24 +246,30 @@ public class NestedScrollActivity extends AppCompatActivity {
     /**
      * 刷新加载监听
      */
-   /* private void refreshListen() {
+    private void refreshListen() {
         // refresh
         mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                refreshHead();
-                mFragmentAdapter.mFragments.get(mViewPager.getCurrentItem()).refreshData(refreshLayout,mViewPager.getCurrentItem());
+            public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
+                refreshLayout.getLayout().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshHead();
+                        mFragmentAdapter.mFragments.clear();
+                        mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), getFragment());
+                        mViewPager.setAdapter(mFragmentAdapter);
+                        mViewPager.setOffscreenPageLimit(10);
+                        initMagicIndicator();
+                        initMagicIndicatorTitle();
+                        refreshLayout.finishRefresh();
+                    }
+                },2000);
+
+
             }
         });
 
-        // loadMore
-        mRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                mFragmentAdapter.mFragments.get(mViewPager.getCurrentItem()).loadMore(refreshLayout,mViewPager.getCurrentItem());
-            }
-        });
-    }*/
+    }
 
     private void refreshHead() {
         mTvUsername.setText(mTvUsername.getText() + "a");

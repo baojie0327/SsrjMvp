@@ -26,9 +26,6 @@ import java.util.List;
 public class RecyclerViewAdapter extends BaseQuickAdapter<TabBean,BaseViewHolder> {
 
 
-    public RecyclerViewAdapter() {
-        super( R.layout.item_recycle_layout, null);
-    }
 
     public RecyclerViewAdapter(int layoutResId, @Nullable List<TabBean> data) {
         super(layoutResId, data);
