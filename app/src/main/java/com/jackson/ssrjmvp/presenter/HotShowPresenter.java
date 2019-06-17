@@ -56,6 +56,7 @@ public class HotShowPresenter {
     public void getData(final int type, int start) {
         // 参数
         Map<String, String> paraMap = new HashMap<>();
+        paraMap.put("apikey", "0df993c66c0c636e29ecbb5344252a4a");
         paraMap.put("city", "北京");
         paraMap.put("start", start + "");
         paraMap.put("count", Constant.PAGE_COUNT + "");
