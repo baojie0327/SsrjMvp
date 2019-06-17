@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.jackson.ssrjmvp">
+    package="com.jackson.ssrjmvp">
 
     <!-- 权限 -->
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW"/>
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
 
-   <!--<category android:name="android.intent.category.APP_MARKET"/>-->
+    <!-- <category android:name="android.intent.category.APP_MARKET"/> -->
     <!-- suppress DeprecatedClassUsageInspection -->
-    <uses-permission android:name="android.permission.GET_TASKS"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".JacksonApplication"
@@ -40,37 +40,27 @@
             android:screenOrientation="portrait"
             android:theme="@style/ColorTranslucentTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".view.activity.BaseActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".view.activity.LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/ColorTranslucentTheme">
-        </activity>
-        <activity android:name=".view.activity.supertext.SuperTextViewActivity">
-        </activity>
-        <activity android:name=".view.activity.flexbox.FlexBoxLayoutActivity">
-        </activity>
-        <activity android:name=".view.activity.flexbox.FlexBoxFlowActivity">
-        </activity>
-        <activity android:name=".view.activity.flexbox.FlexWaterFallActivity">
-        </activity>
-        <activity
-            android:name=".view.activity.NestedScrollActivity">
-        </activity>
-        <activity android:name=".view.activity.immersive.ImmersiveActivity">
-        </activity>
-        <activity android:name=".view.activity.immersive.WholeImageActivity">
-        </activity>
-        <activity android:name=".view.activity.immersive.ImageActivity">
-        </activity>
+            android:theme="@style/ColorTranslucentTheme"></activity>
+        <activity android:name=".view.activity.supertext.SuperTextViewActivity"></activity>
+        <activity android:name=".view.activity.flexbox.FlexBoxLayoutActivity"></activity>
+        <activity android:name=".view.activity.flexbox.FlexBoxFlowActivity"></activity>
+        <activity android:name=".view.activity.flexbox.FlexWaterFallActivity"></activity>
+        <activity android:name=".view.activity.NestedScrollActivity"></activity>
+        <activity android:name=".view.activity.immersive.ImmersiveActivity"></activity>
+        <activity android:name=".view.activity.immersive.WholeImageActivity"></activity>
+        <activity android:name=".view.activity.immersive.ImageActivity"></activity>
+        <activity android:name=".view.activity.TestActivity"></activity>
     </application>
 
 </manifest>

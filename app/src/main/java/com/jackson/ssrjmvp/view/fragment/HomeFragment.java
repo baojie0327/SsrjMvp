@@ -62,6 +62,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -157,7 +158,7 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
         // mRefreshLayout.setEnableOverScrollBounce(false);//关闭越界回弹功能
 
         // 设置官方刷新主题
-        mRefreshLayout.setRefreshHeader(new MaterialHeader(getActivity()));
+        mRefreshLayout.setRefreshHeader(new MaterialHeader(Objects.requireNonNull(getActivity())));
         mRefreshLayout.setEnableHeaderTranslationContent(false);
     }
 
@@ -168,7 +169,7 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
     private void initData() {
         //初始化
         //创建VirtualLayoutManager对象
-        VirtualLayoutManager layoutManager = new VirtualLayoutManager(getActivity());
+        VirtualLayoutManager layoutManager = new VirtualLayoutManager(Objects.requireNonNull(getActivity()));
         layoutManager.setRecycleOffset(5000);
         // 将VirtualLayoutManager绑定到recyclerView
         mRecyclerView.setLayoutManager(layoutManager);

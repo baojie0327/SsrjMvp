@@ -1,5 +1,5 @@
 package com.jackson.ssrjmvp.bean; /**
- * AA  2018-07-11
+ *   2018-07-11
  * Copyright (c) 2018 JS Co.Ltd. All right reserved.
  */
 

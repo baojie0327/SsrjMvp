@@ -32,7 +32,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
     private int lastSelectedPosition;
 
-    private ShapeBadgeItem mShapeBadgeItem;
     private TextBadgeItem mTextBadgeItem;
 
     private HomeFragment mHomeFragment;  // 首页
@@ -77,12 +76,12 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                 .setBorderColorResource(R.color.colorPrimaryDark)  //外边界颜色
                 .setHideOnSelect(false);
 
-        mShapeBadgeItem = new ShapeBadgeItem()
+        ShapeBadgeItem mShapeBadgeItem = new ShapeBadgeItem()
                 .setShape(ShapeBadgeItem.SHAPE_OVAL)
                 .setShapeColor(R.color.main_color)
                 .setShapeColorResource(R.color.main_color)
-                .setSizeInDp(this,10,10)
-                .setEdgeMarginInDp(this,2)
+                .setSizeInDp(this, 10, 10)
+                .setEdgeMarginInDp(this, 2)
 //                .setSizeInPixels(30,30)
 //                .setEdgeMarginInPixels(-1)
                 .setGravity(Gravity.TOP | Gravity.END)
