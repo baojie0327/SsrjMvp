@@ -4,6 +4,7 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * Created by Lenovo on 2017/10/25.
+ * 这是一个回调接口
  */
 
 public interface MyCallBack<T> {

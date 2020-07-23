@@ -50,6 +50,7 @@ import com.jackson.ssrjmvp.utils.Constant;
 import com.jackson.ssrjmvp.utils.LogUtil;
 import com.jackson.ssrjmvp.view.IView;
 import com.jackson.ssrjmvp.view.activity.NestedScrollActivity;
+import com.jackson.ssrjmvp.view.activity.TestActivity;
 import com.jackson.ssrjmvp.view.activity.flexbox.FlexBoxLayoutActivity;
 import com.jackson.ssrjmvp.view.activity.immersive.ImmersiveActivity;
 import com.jackson.ssrjmvp.view.activity.supertext.SuperTextViewActivity;
@@ -284,6 +285,7 @@ public class HomeFragment extends Fragment implements IView.IHomeView {
             @Override
             public void onItemClick(View view, int position) {
                 Toast.makeText(getActivity(), "click--" + position, Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(), TestActivity.class));
             }
         });
     }

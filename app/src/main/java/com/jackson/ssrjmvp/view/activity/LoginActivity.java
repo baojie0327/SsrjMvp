@@ -59,6 +59,25 @@ public class LoginActivity extends BaseActivity implements IView.ILoginView {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mLoginPresenter.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mLoginPresenter.onResume();
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mLoginPresenter.onPause();
+    }
+
     /**
      * Dagger2的inject方法
      */

@@ -6,11 +6,16 @@ package com.jackson.ssrjmvp.view.fragment; /**
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.jackson.ssrjmvp.R;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * class description here
@@ -26,7 +31,25 @@ public class MineFragment extends Fragment{
         if (view==null){
             view=inflater.inflate(R.layout.fragment_mine_layout,null);
         }
+        Log.d("hbj--",""+getDaysInterval("2019-10-10","2092-10-10"));
         return view;
+    }
+
+
+    public static int getDaysInterval(String startDate, String endDate) {
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        int days = 0;
+        try {
+            Date date1 = format.parse(startDate);
+            Date date2 = format.parse(endDate);
+            days = (int) ((date2.getTime() - date1.getTime()) / (1000 * 3600 * 24));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return days;
+
     }
 
 

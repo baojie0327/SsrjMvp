@@ -12,6 +12,8 @@ import android.app.Activity;
  * since 2017 11 02
  */
 public interface IPresenter {
-    void setCurrentActivity(Activity value);
+    void onStart();
+    void onResume();
+    void onPause();
 }
 

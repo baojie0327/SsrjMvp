@@ -25,7 +25,7 @@ import io.reactivex.disposables.Disposable;
  * @version 1.0.0
  *          since 2017 10 25
  */
-public class LoginPresenter {
+public class LoginPresenter implements IPresenter{
 
     private IView.ILoginView mILoginView;
 
@@ -109,5 +109,21 @@ public class LoginPresenter {
         return paraMap;
     }
 
+    @Override
+    public void onStart() {
+        // onStart需执行的业务逻辑
+    }
+
+    @Override
+    public void onResume() {
+        // onResume需执行的业务逻辑
+
+    }
+
+    @Override
+    public void onPause() {
+        // onPause需执行的业务逻辑
+
+    }
 }
 

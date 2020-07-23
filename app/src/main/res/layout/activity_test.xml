@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".view.activity.TestActivity">
 
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
+
     <TextView
         android:id="@+id/tv1"
         android:layout_width="100dp"
